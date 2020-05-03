@@ -134,10 +134,16 @@ on boot
 
     # Touchpanel
     chown system system /sys/touchpanel/double_tap
+    chmod 0660 /sys/touchpanel/double_tap
+
+    write /sys/touchpanel/double_tap 1
 
     chmod 0664 /sys/touchpanel/capacitive_keys
     chmod 0664 /sys/touchpanel/double_tap
     chmod 0664 /sys/touchpanel/reversed_keys
+    chown system system /sys/devices/virtual/timed_output/vibrator/vtg_level
+    chmod 0660 /sys/devices/virtual/timed_output/vibrator/vtg_level
+    write /sys/devices/virtual/timed_output/vibrator/vtg_level 638
 
 #Peripheral manager
 service vendor.per_mgr /system/vendor/bin/pm-service
