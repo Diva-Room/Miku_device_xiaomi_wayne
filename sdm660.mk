@@ -161,12 +161,10 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
-    android.hardware.camera.device@3.4:64 \
     android.hardware.camera.device@3.5:64 \
-    android.hardware.camera.provider@2.4:64 \
+    android.hardware.camera.provider@2.6:64 \
     android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service \
-    android.hardware.camera.provider@2.5:64 \
     libdng_sdk.vendor \
     vendor.qti.hardware.camera.device@1.0:64
 
