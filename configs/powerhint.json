@@ -80,7 +80,7 @@
       "Path": "/sys/class/kgsl/kgsl-3d0/idle_timer",
       "Values": [
         "10000",
-        "64"
+        "70"
       ],
       "ResetOnInit": true
     },
