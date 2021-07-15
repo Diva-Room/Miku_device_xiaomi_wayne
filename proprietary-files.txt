@@ -1,4 +1,4 @@
-# jasmine package version: V11.0.27.0.QDIMIXM, unless stated otherwise
+# jasmine package version: V11.0.28.0.QDIMIXM, unless stated otherwise
 
 # ADSP - from jasmine
 vendor/bin/adsprpcd|0cdd541ee0a365c5dccd0613e495611f4d0f6607
@@ -545,7 +545,7 @@ vendor/lib/mediadrm/libwvdrmengine.so|a8bdbbfb3aa222095f1cb7658ec5c46fa41dd560
 vendor/lib64/mediadrm/libwvdrmengine.so|80280a2292db04a1eb3750df6897dea96f0f62f5
 vendor/lib64/libcpion.so|ff24ef248bb35fd3cc1081a63f33c2565dc6351f
 vendor/lib64/libhdcpsrm.so|ee8e7c29e2b716a8bb07c3cbb730e34d8af3c64e
-vendor/lib64/libwvhidl.so|38677623330ec145a62afdef110c713c9492671c
+vendor/lib64/libwvhidl.so|0466cd3b2a7b93efd23945e2637430513472ad7c
 
 # WiFi Display - from phoenix_sprout 11 RKQ1.201123.002
 bin/wfdservice|cb053924304edda5bf4f9e3ddbbb7983e30513e9
