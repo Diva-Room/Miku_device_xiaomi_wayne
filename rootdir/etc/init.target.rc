@@ -85,7 +85,7 @@ on post-fs-data
     mkdir /data/tombstones/dsps 0771 system system
 
 on boot
-    start rmt_storage
+    start vendor.rmt_storage
     start rfs_access
 
     # Thermal
