@@ -399,10 +399,6 @@ PRODUCT_PACKAGES += \
     ipacm \
     IPACM_cfg.xml
 
-# VNDK
-PRODUCT_PACKAGES += \
-    vndk-ext
-
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
