@@ -6,6 +6,7 @@
 
 COMMON_PATH := device/xiaomi/sdm660-common
 
+RELAX_USES_LIBRARY_CHECK := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # Bootloader
