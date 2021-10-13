@@ -178,6 +178,10 @@ PRODUCT_PACKAGES += \
     vendor.display.config@2.0 \
     vendor.display.config@2.0_vendor
 
+# Display Device Config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/display_id_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_0.xml
+
 # DPM
 PRODUCT_PACKAGES += \
     libshim_dpmframework
