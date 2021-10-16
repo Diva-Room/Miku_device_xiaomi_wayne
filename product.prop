@@ -2,5 +2,5 @@
 ro.charger.disable_init_blank=true
 ro.charger.enable_suspend=true
 
-# IORap app launch prefetching using Perfetto traces and madvise
-ro.iorapd.enable=true
+# IORap
+persist.device_config.runtime_native_boot.iorap_readahead_enable=true
