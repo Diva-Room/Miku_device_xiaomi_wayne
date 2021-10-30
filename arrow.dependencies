@@ -3,6 +3,10 @@
     "repository": "android_device_xiaomi_extras",
     "target_path": "device/xiaomi/extras"
   },
+    {
+    "repository": "android_hardware_xiaomi",
+    "target_path": "hardware/xiaomi"
+  },
   {
     "repository": "android_kernel_xiaomi_sdm660",
     "target_path": "kernel/xiaomi/sdm660"
