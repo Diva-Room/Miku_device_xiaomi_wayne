@@ -1,0 +1,18 @@
+[
+  {
+    "repository": "Miku_device_xiaomi_extras",
+    "target_path": "device/xiaomi/extras"
+  },
+    {
+    "repository": "Miku_hardware_xiaomi",
+    "target_path": "hardware/xiaomi"
+  },
+  {
+    "repository": "Miku_kernel_xiaomi_wayne",
+    "target_path": "kernel/xiaomi/wayne"
+  },
+  {
+    "repository": "Miku_vendor_xiaomi_wayne",
+    "target_path": "vendor/xiaomi/wayne"
+  },
+]

@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2018 The LineageOS Project
+# Copyright (C) 2021 Miku UI
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -9,9 +10,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o_mr1.mk)
 
-# Inherit some common Arrow stuff
-$(call inherit-product, vendor/arrow/config/common.mk)
-DEVICE_MAINTAINER := TH779, ReallySnow
+# Inherit some common Miku stuff
+$(call inherit-product, vendor/miku/build/product/miku_product.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 
 # Inherit from wayne device
@@ -21,7 +21,7 @@ PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := wayne
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_MODEL := MI 6X
-PRODUCT_NAME := arrow_wayne
+PRODUCT_NAME := miku_wayne
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
