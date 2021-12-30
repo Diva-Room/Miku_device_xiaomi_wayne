@@ -33,7 +33,9 @@
     <!-- Pocket gesture -->
     <string name="pocket_gesture_title">从口袋里拿出来的时候</string>
     <string name="pocket_gesture_summary">从口袋里把手机拿出来就可以显示通知呢，赞！</string>
-    
+    <!-- FPS Counter -->
+    <string name="fps_info_title">FPS 显示</string>
+
     <!-- xiaoleGun Resources -->
     <!-- Thermal Profiles -->
     <string name="thermal_title">性能优化</string>
