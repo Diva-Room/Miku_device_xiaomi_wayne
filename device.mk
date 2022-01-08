@@ -133,6 +133,10 @@ PRODUCT_PACKAGES += \
 # Boot animation
 TARGET_BOOT_ANIMATION_RES := 1080
 
+# Browser
+PRODUCT_PACKAGES += \
+     Via
+
 # Camera
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
