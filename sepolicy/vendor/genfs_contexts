@@ -32,5 +32,5 @@ genfscon sysfs /devices/platform/soc/soc:qcom,cpubw             u:object_r:sysfs
 # Touchpanel
 genfscon sysfs /touchpanel                                      u:object_r:sysfs_touchpanel:s0
 
-# FPS Info
-genfscon sysfs /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps                                        u:object_r:vendor_sysfs_graphics:s0
+genfscon sysfs /devices/virtual/graphics/fb0/measured_fps                                                                                   u:object_r:sysfs_fpsinfo:s0
+genfscon sysfs /class/graphics/fb0/measured_fps                                                                                             u:object_r:sysfs_fpsinfo:s0

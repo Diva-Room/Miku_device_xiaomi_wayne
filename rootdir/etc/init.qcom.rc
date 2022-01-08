@@ -409,9 +409,11 @@ on property:sys.boot_completed=1
     write /sys/block/dm-1/queue/read_ahead_kb 512
     write /sys/block/dm-2/queue/read_ahead_kb 512
     
-    # FPS Info permissions
-    chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
-    chmod 0666 /sys/class/drm/sde-crtc-0/measured_fps
+    # FPS
+    chown system system /sys/devices/virtual/graphics/fb0/measured_fps
+    chmod 0660 /sys/devices/virtual/graphics/fb0/measured_fps
+    chown system system /sys/class/graphics/fb0/measured_fps
+    chmod 0660 /sys/class/graphics/fb0/measured_fps
     
     #WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
