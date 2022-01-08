@@ -134,14 +134,6 @@ PRODUCT_PACKAGES += \
 TARGET_BOOT_ANIMATION_RES := 1080
 
 # Camera
-ifeq ($(ARROW_GAPPS), true)
-PRODUCT_PACKAGES += \
-    GCamGOPrebuilt
-else
-PRODUCT_PACKAGES += \
-    Snap
-endif
-
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
     android.hardware.camera.device@3.5:64 \
