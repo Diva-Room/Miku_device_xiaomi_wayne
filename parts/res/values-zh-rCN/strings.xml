@@ -47,10 +47,6 @@
     <string name="thermal_dialer">省电</string>
     <string name="thermal_gaming">游戏</string>
     <string name="thermal_streaming">看番</string>
-        <!-- Clear Speaker -->
-    <string name="clear_speaker_title">清理扬声器</string>
-    <string name="clear_speaker_summary">使用30S的白噪音清理你6X的扬声器</string>
-    <string name="clear_speaker_description">如果您发现扬声器被灰尘遮挡，请运行此功能一次或两次。将媒体声音调整为最大。\n\n如果扬声器被严重阻塞，请向下晃动6X的同时运行此功能2-5次。</string>
 
     <!-- Lineage Resources -->
     <string name="user_aware_display_title">用户感知显示</string>
