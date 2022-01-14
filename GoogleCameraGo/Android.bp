@@ -1,0 +1,11 @@
+android_app_import {
+    apk: "Camera/Camera.apk",
+    name: "GoogleCameraGo",
+    overrides: [
+        "Snap",
+        "Camera2",
+        "SnapdragonCamera",
+    ],
+    presigned: true,
+    product_specific: true,
+}
