@@ -1,0 +1,10 @@
+android_app_import {
+    apk: "Via/Via.apk",
+    name: "Via",
+    overrides: [
+        "QuickSearchBox",
+        "Browser2",
+    ],
+    presigned: true,
+    product_specific: true,
+}
