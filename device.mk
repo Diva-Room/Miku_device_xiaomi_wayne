@@ -134,8 +134,13 @@ PRODUCT_PACKAGES += \
 TARGET_BOOT_ANIMATION_RES := 1080
 
 # Browser
+ifeq ($(MIKU_GAPPS), true)
 PRODUCT_PACKAGES += \
-     Via
+    Chrome
+else
+PRODUCT_PACKAGES += \
+    Via
+endif
 
 # Camera
 PRODUCT_PACKAGES += \
