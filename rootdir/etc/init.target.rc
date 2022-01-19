@@ -139,6 +139,8 @@ on boot
     chmod 0664 /sys/touchpanel/double_tap
     chmod 0664 /sys/touchpanel/reversed_keys
 
+    write /sys/touchpanel/double_tap 1
+
 #Peripheral manager
 service vendor.per_mgr /system/vendor/bin/pm-service
     class core
