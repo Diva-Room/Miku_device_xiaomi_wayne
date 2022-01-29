@@ -55,9 +55,7 @@ on init
     chmod 0664 /sys/class/kgsl/kgsl-3d0/force_rail_on
     chmod 0664 /sys/class/kgsl/kgsl-3d0/force_clk_on
     chmod 0664 /sys/class/kgsl/kgsl-3d0/idle_timer
-    chmod 0664 /sys/class/devfreq/soc:qcom,cpubw/min_freq
-    chmod 0664 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_trigger_count
-    chmod 0664 /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory
+    chown 0664 /sys/class/devfreq/soc:qcom,cpubw/min_freq
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -70,7 +68,6 @@ on fs
     mkdir /mnt/vendor/persist/bms 0700 root system
     restorecon_recursive /mnt/vendor/persist
     write /sys/kernel/boot_adsp/boot 1
-    chown 0664 /sys/class/devfreq/soc:qcom,cpubw/min_freq
 
     mkdir /mnt/vendor/dsp 0770 root root
     copy /vendor/dsp/cdsp/fastrpc_shell_3 /mnt/vendor/dsp/fastrpc_shell_3
