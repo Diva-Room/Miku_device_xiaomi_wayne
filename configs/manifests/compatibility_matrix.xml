@@ -15,6 +15,14 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl" optional="true">
+        <name>android.hardware.sensors</name>
+        <version>1.0</version>
+        <interface>
+            <name>ISensorManager</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="hidl" optional="false">
         <name>android.hidl.allocator</name>
         <version>1.0</version>
