@@ -17,7 +17,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit some common Miku stuff
 $(call inherit-product, vendor/miku/build/product/miku_product.mk)
-TARGET_BOOT_ANIMATION_RES := 1080
 
 # Inherit from wayne device
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
