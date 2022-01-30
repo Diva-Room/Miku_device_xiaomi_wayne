@@ -156,7 +156,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 # ConsumerIR
-BOARD_HAVE_IR := true
 PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-service.xiaomi_sdm660
 
@@ -205,8 +204,6 @@ PRODUCT_PACKAGES += \
 
 # Haters gonna hate..
 PRODUCT_CHARACTERISTICS := nosdcard
-
-
 
 # FM
 PRODUCT_PACKAGES += \
