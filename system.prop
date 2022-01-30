@@ -12,3 +12,6 @@ DEVICE_PROVISIONED=1
 persist.sys.fflag.override.settings_network_and_internet_v2=true
 ril.subscription.types=NV,RUIM
 telephony.lteOnCdmaDevice=1
+
+# Zygote
+persist.device_config.runtime_native.usap_pool_enabled=true
