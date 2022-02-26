@@ -27,11 +27,13 @@ PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_MODEL := MI 6X
 PRODUCT_NAME := miku_wayne
 
-PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
-
-TARGET_VENDOR_PRODUCT_NAME := wayne
+BUILD_FINGERPRINT := google/raven/raven:12/SQ1D.220105.007/8030436:user/release-keys
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="wayne-user 8.1.0 OPM1.171019.011 V9.5.11.0.ODCCNFA release-keys"
+    PRIVATE_BUILD_DESC="raven-user 12 SQ1D.220105.007 8030436 release-keys" \
+    PRODUCT_NAME="wayne"
 
-BUILD_FINGERPRINT := xiaomi/wayne/wayne:8.1.0/OPM1.171019.011/V9.5.11.0.ODCCNFA:user/release-keys
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.fingerprint=google/raven/raven:12/SQ1D.220105.007/8030436:user/release-keys
+
+PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
