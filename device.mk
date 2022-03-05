@@ -428,7 +428,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vibrator/excluded-input-devices.xml:vendor/etc/excluded-input-devices.xml
+    $(LOCAL_PATH)/configs/excluded-input-devices.xml:vendor/etc/excluded-input-devices.xml
 
 # Wifi
 PRODUCT_PACKAGES += \
