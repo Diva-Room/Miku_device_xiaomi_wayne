@@ -1,4 +1,5 @@
 # jasmine package version: V11.0.28.0.QDIMIXM, unless stated otherwise
+# S62Pro: Cat S62Pro sdm660_64-user 11 RKQ1.210406.002 1.015.00
 
 # ADSP - from S62Pro
 vendor/bin/adsprpcd|5e246a6f5d2dca27e29b233a17e4673532191b95
