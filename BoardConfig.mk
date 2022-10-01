@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2018 The LineageOS Project
-#
+# Copyright (C) 2021-2022 Miku UI
 # SPDX-License-Identifier: Apache-2.0
 #
 
