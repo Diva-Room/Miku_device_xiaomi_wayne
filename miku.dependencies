@@ -1,10 +1,12 @@
 [
   {
-    "repository": "android_kernel_xiaomi_wayne",
-    "target_path": "kernel/xiaomi/wayne"
+    "repository": "Miku_kernel_xiaomi_wayne",
+    "target_path": "kernel/xiaomi/wayne",
+    "branch": "TDA",
   },
   {
-    "repository": "android_vendor_xiaomi_wayne",
-    "target_path": "vendor/xiaomi/wayne"
+    "repository": "Miku_vendor_xiaomi_wayne",
+    "target_path": "vendor/xiaomi/wayne",
+    "branch": "TDA",
   }
 ]
