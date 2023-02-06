@@ -91,6 +91,7 @@ TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_SOURCE := kernel/xiaomi/wayne
 TARGET_KERNEL_CONFIG := vendor/wayne_defconfig
 TARGET_KERNEL_VERSION := 4.19
+TARGET_WITH_KERNEL_SU := true
 
 # Platform
 BOARD_VENDOR := xiaomi
