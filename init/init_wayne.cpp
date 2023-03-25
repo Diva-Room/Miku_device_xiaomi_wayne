@@ -68,6 +68,20 @@ void property_override(char const prop[], char const value[], bool add = true)
     }
 }
 
+void setup_model_properties()
+{
+    std::ifstream cmdline("/proc/cmdline");
+    std::string buf;
+
+    while (std::getline(cmdline, buf, ' '))
+        if (buf.find("hwversion") != std::string::npos)
+            break;
+    cmdline.close();
+
+    if (buf.find("2.31.0") != std::string::npos)
+        property_override("ro.product.model", "MI 6X MIKU");
+}
+
 void vendor_load_properties()
 {
     check_device();
@@ -78,4 +92,6 @@ void vendor_load_properties()
     property_override("dalvik.vm.heaptargetutilization", heaptargetutilization);
     property_override("dalvik.vm.heapminfree", heapminfree);
     property_override("dalvik.vm.heapmaxfree", heapmaxfree);
+
+    setup_model_properties();
 }
