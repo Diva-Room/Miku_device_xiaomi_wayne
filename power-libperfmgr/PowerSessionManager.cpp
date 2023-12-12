@@ -81,8 +81,8 @@ static int set_uclamp(int tid, UclampRange range) {
 template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::updateHintMode(const std::string &mode, bool enabled) {
     ALOGD("%s %s:%b", __func__, mode.c_str(), enabled);
-    if (enabled && HintManager::GetInstance()->GetAdpfProfileFromDoHint()) {
-        HintManager::GetInstance()->SetAdpfProfileFromDoHint(mode);
+    if (enabled && HintManagerT::GetInstance()->GetAdpfProfileFromDoHint()) {
+        HintManagerT::GetInstance()->SetAdpfProfileFromDoHint(mode);
     }
 }
 
@@ -380,17 +380,17 @@ void PowerSessionManager<HintManagerT>::disableBoosts(int64_t sessionId) {
 
 template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::enableSystemTopAppBoost() {
-    if (HintManager::GetInstance()->IsHintSupported(kDisableBoostHintName)) {
+    if (HintManagerT::GetInstance()->IsHintSupported(kDisableBoostHintName)) {
         ALOGV("PowerSessionManager::enableSystemTopAppBoost!!");
-        HintManager::GetInstance()->EndHint(kDisableBoostHintName);
+        HintManagerT::GetInstance()->EndHint(kDisableBoostHintName);
     }
 }
 
 template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::disableSystemTopAppBoost() {
-    if (HintManager::GetInstance()->IsHintSupported(kDisableBoostHintName)) {
+    if (HintManagerT::GetInstance()->IsHintSupported(kDisableBoostHintName)) {
         ALOGV("PowerSessionManager::disableSystemTopAppBoost!!");
-        HintManager::GetInstance()->DoHint(kDisableBoostHintName);
+        HintManagerT::GetInstance()->DoHint(kDisableBoostHintName);
     }
 }
 
@@ -448,7 +448,7 @@ void PowerSessionManager<HintManagerT>::handleEvent(const EventSessionTimeout &e
 template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::applyUclampLocked(
         int64_t sessionId, std::chrono::steady_clock::time_point timePoint) {
-    auto config = HintManager::GetInstance()->GetAdpfProfile();
+    auto config = HintManagerT::GetInstance()->GetAdpfProfile();
     {
         // TODO(kevindubois) un-indent this in followup patch to reduce churn.
         auto sessValPtr = mSessionTaskMap.findSession(sessionId);
@@ -492,7 +492,7 @@ void PowerSessionManager<HintManagerT>::applyGpuVotesLocked(
         return;
     }
 
-    auto const gpuVotingOn = HintManager::GetInstance()->GetAdpfProfile()->mGpuBoostOn;
+    auto const gpuVotingOn = HintManagerT::GetInstance()->GetAdpfProfile()->mGpuBoostOn;
     if (mGpuCapacityNode && gpuVotingOn) {
         auto const capacity = mSessionTaskMap.getSessionsGpuCapacity(timePoint);
         (*mGpuCapacityNode)->set_gpu_capacity(capacity);

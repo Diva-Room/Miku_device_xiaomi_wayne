@@ -32,6 +32,8 @@ cc_binary {
     ],
     srcs: [
         "BackgroundWorker.cpp",
+        "ChannelGroup.cpp",
+        "ChannelManager.cpp",
         "GpuCalculationHelpers.cpp",
         "GpuCapacityNode.cpp",
         "service.cpp",
@@ -42,6 +44,7 @@ cc_binary {
         "PowerSessionManager.cpp",
         "UClampVoter.cpp",
         "SessionRecords.cpp",
+        "SessionChannel.cpp",
         "SessionTaskMap.cpp",
         "SessionValueEntry.cpp",
     ],

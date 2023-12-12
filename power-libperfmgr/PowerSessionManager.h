@@ -137,7 +137,7 @@ class PowerSessionManager : public Immobile {
     std::optional<std::unique_ptr<GpuCapacityNode>> const mGpuCapacityNode;
 
     std::mutex mSessionMapMutex;
-    std::map<int, std::weak_ptr<void>> mSessionMap GUARDED_BY(mSessionMapMutex);
+    std::unordered_map<int, std::weak_ptr<void>> mSessionMap GUARDED_BY(mSessionMapMutex);
 };
 
 }  // namespace pixel

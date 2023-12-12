@@ -21,7 +21,6 @@
 #include <android-base/file.h>
 #include <android-base/logging.h>
 #include <android-base/properties.h>
-#include <android-base/stringprintf.h>
 #include <android-base/strings.h>
 #include <fmq/AidlMessageQueue.h>
 #include <fmq/EventFlag.h>
@@ -29,9 +28,11 @@
 #include <utils/Log.h>
 
 #include <cstdint>
+#include <memory>
 #include <optional>
 
 #include "AdpfTypes.h"
+#include "ChannelManager.h"
 #include "PowerHintSession.h"
 #include "PowerSessionManager.h"
 
@@ -289,23 +290,16 @@ ndk::ScopedAStatus Power::createHintSessionWithConfig(
     return ndk::ScopedAStatus::ok();
 }
 
-ndk::ScopedAStatus Power::getSessionChannel(int32_t, int32_t, ChannelConfig *_aidl_return) {
-    static AidlMessageQueue<ChannelMessage, SynchronizedReadWrite> stubQueue{20, true};
-    static std::thread stubThread([&] {
-        ChannelMessage data;
-        // This loop will only run while there is data waiting
-        // to be processed, and blocks on a futex all other times
-        while (stubQueue.readBlocking(&data, 1, 0)) {
-        }
-    });
-    _aidl_return->channelDescriptor = stubQueue.dupeDesc();
-    _aidl_return->readFlagBitmask = 0x01;
-    _aidl_return->writeFlagBitmask = 0x02;
-    _aidl_return->eventFlagDescriptor = std::nullopt;
-    return ndk::ScopedAStatus::ok();
+ndk::ScopedAStatus Power::getSessionChannel(int32_t tgid, int32_t uid,
+                                            ChannelConfig *_aidl_return) {
+    if (ChannelManager<>::getInstance()->getChannelConfig(tgid, uid, _aidl_return)) {
+        return ndk::ScopedAStatus::ok();
+    }
+    return ndk::ScopedAStatus::fromStatus(EX_ILLEGAL_STATE);
 }
 
-ndk::ScopedAStatus Power::closeSessionChannel(int32_t, int32_t) {
+ndk::ScopedAStatus Power::closeSessionChannel(int32_t tgid, int32_t uid) {
+    ChannelManager<>::getInstance()->closeChannel(tgid, uid);
     return ndk::ScopedAStatus::ok();
 }
 
