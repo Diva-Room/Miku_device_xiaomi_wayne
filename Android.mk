@@ -1,6 +1,6 @@
 #
-# Copyright (C) 2022 The LineageOS Project
-# Copyright (C) 2021-2022 Miku UI
+# Copyright (C) 2022-2025 The LineageOS Project
+# Copyright (C) 2021-2025 Miku UI
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -64,15 +64,5 @@ $(EGL_64_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf egl/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(EGL_32_SYMLINKS) $(EGL_64_SYMLINKS)
-
-IMS_LIBS := libimscamera_jni.so libimsmedia_jni.so
-IMS_SYMLINKS := $(addprefix $(TARGET_OUT_SYSTEM_EXT_APPS_PRIVILEGED)/ims/lib/arm64/,$(notdir $(IMS_LIBS)))
-$(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "IMS lib link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /system_ext/lib64/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(IMS_SYMLINKS)
 
 endif
