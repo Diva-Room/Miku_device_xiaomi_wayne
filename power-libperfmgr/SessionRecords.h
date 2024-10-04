@@ -22,6 +22,8 @@
 #include <optional>
 #include <vector>
 
+#include "SessionMetrics.h"
+
 namespace aidl {
 namespace google {
 namespace hardware {
@@ -30,7 +32,6 @@ namespace impl {
 namespace pixel {
 
 using aidl::android::hardware::power::WorkDuration;
-
 class SessionRecords {
   public:
     struct CycleRecord {
@@ -45,7 +46,8 @@ class SessionRecords {
     ~SessionRecords() = default;
 
     void addReportedDurations(const std::vector<WorkDuration> &actualDurationsNs,
-                              int64_t targetDurationNs, bool computeFPSJitters = false);
+                              int64_t targetDurationNs, FrameBuckets &newFramesInBuckets,
+                              bool computeFPSJitters = false);
     std::optional<int32_t> getMaxDuration();
     std::optional<int32_t> getAvgDuration();
     int32_t getNumOfRecords();
@@ -58,6 +60,9 @@ class SessionRecords {
     int32_t getNumOfFPSJitters() const;
 
   private:
+    void updateFrameBuckets(int32_t frameDurationUs, bool isJankFrame,
+                            FrameBuckets &framesInBuckets);
+
     const int32_t kMaxNumOfRecords;
     const double kJankCheckTimeFactor;
     std::vector<CycleRecord> mRecords;

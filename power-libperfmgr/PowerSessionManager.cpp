@@ -622,6 +622,18 @@ void PowerSessionManager<HintManagerT>::clear() {
 }
 
 template <class HintManagerT>
+void PowerSessionManager<HintManagerT>::updateFrameBuckets(int64_t sessionId,
+                                                           const FrameBuckets &lastReportedFrames) {
+    std::lock_guard<std::mutex> lock(mSessionTaskMapMutex);
+    auto sessValPtr = mSessionTaskMap.findSession(sessionId);
+    if (nullptr == sessValPtr) {
+        return;
+    }
+
+    sessValPtr->sessFrameBuckets.addUpNewFrames(lastReportedFrames);
+}
+
+template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::updateHboostStatistics(int64_t sessionId,
                                                                SessionJankyLevel jankyLevel,
                                                                int32_t numOfFrames) {

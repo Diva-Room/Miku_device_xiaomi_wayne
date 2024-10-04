@@ -81,6 +81,8 @@ class PowerSessionManager : public Immobile {
     void updateHboostStatistics(int64_t sessionId, SessionJankyLevel jankyLevel,
                                 int32_t numOfFrames);
 
+    void updateFrameBuckets(int64_t sessionId, const FrameBuckets &lastReportedFrames);
+
     // Singleton
     static PowerSessionManager *getInstance() {
         static PowerSessionManager instance{};

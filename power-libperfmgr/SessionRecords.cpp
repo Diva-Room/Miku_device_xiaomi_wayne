@@ -35,7 +35,9 @@ SessionRecords::SessionRecords(const int32_t maxNumOfRecords, const double jankC
 }
 
 void SessionRecords::addReportedDurations(const std::vector<WorkDuration> &actualDurationsNs,
-                                          int64_t targetDurationNs, bool computeFPSJitters) {
+                                          int64_t targetDurationNs,
+                                          FrameBuckets &newFramesInBuckets,
+                                          bool computeFPSJitters) {
     for (auto &duration : actualDurationsNs) {
         int32_t totalDurationUs = duration.durationNanos / 1000;
 
@@ -109,6 +111,7 @@ void SessionRecords::addReportedDurations(const std::vector<WorkDuration> &actua
         if (cycleMissed) {
             mNumOfMissedCycles++;
         }
+        updateFrameBuckets(totalDurationUs, cycleMissed, newFramesInBuckets);
 
         // Pop out the indexes that their related values are not greater than the
         // latest one.
@@ -177,6 +180,26 @@ int32_t SessionRecords::getLatestFPS() const {
 
 int32_t SessionRecords::getNumOfFPSJitters() const {
     return mNumOfFrameFPSJitters;
+}
+
+void SessionRecords::updateFrameBuckets(int32_t frameDurationUs, bool isJankFrame,
+                                        FrameBuckets &framesInBuckets) {
+    framesInBuckets.totalNumOfFrames++;
+    if (!isJankFrame || frameDurationUs < 17000) {
+        return;
+    }
+
+    if (frameDurationUs < 25000) {
+        framesInBuckets.numOfFrames17to25ms++;
+    } else if (frameDurationUs < 34000) {
+        framesInBuckets.numOfFrames25to34ms++;
+    } else if (frameDurationUs < 67000) {
+        framesInBuckets.numOfFrames34to67ms++;
+    } else if (frameDurationUs < 100000) {
+        framesInBuckets.numOfFrames67to100ms++;
+    } else if (frameDurationUs >= 100000) {
+        framesInBuckets.numOfFramesOver100ms++;
+    }
 }
 
 }  // namespace pixel
