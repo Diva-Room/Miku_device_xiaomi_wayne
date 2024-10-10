@@ -28,7 +28,7 @@
 #include <perfmgr/HintManager.h>
 #include <utils/Log.h>
 
-#include <mutex>
+#include <cstdint>
 #include <optional>
 
 #include "AdpfTypes.h"
@@ -49,6 +49,37 @@ constexpr char kPowerHalRenderingProp[] = "vendor.powerhal.rendering";
 
 extern bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return);
 extern bool setDeviceSpecificMode(Mode type, bool enabled);
+
+const std::map<Mode, int32_t> kModeEarliestVersion = {
+  {Mode::DOUBLE_TAP_TO_WAKE, 1},
+  {Mode::LOW_POWER, 1},
+  {Mode::SUSTAINED_PERFORMANCE, 1},
+  {Mode::FIXED_PERFORMANCE, 1},
+  {Mode::VR, 1},
+  {Mode::LAUNCH, 1},
+  {Mode::EXPENSIVE_RENDERING, 1},
+  {Mode::INTERACTIVE, 1},
+  {Mode::DEVICE_IDLE, 1},
+  {Mode::DISPLAY_INACTIVE, 1},
+  {Mode::AUDIO_STREAMING_LOW_LATENCY, 1},
+  {Mode::CAMERA_STREAMING_SECURE, 1},
+  {Mode::CAMERA_STREAMING_LOW, 1},
+  {Mode::CAMERA_STREAMING_MID, 1},
+  {Mode::CAMERA_STREAMING_HIGH, 1},
+  {Mode::GAME, 3},
+  {Mode::GAME_LOADING, 3},
+  {Mode::DISPLAY_CHANGE, 5},
+  {Mode::AUTOMOTIVE_PROJECTION, 5},
+};
+
+const std::map<Boost, int32_t> kBoostEarliestVersion = {
+  {Boost::INTERACTION, 1},
+  {Boost::DISPLAY_UPDATE_IMMINENT, 1},
+  {Boost::ML_ACC, 1},
+  {Boost::AUDIO_LAUNCH, 1},
+  {Boost::CAMERA_LAUNCH, 1},
+  {Boost::CAMERA_SHOT, 1},
+};
 
 Power::Power()
     : mInteractionHandler(nullptr),
@@ -134,27 +165,10 @@ ndk::ScopedAStatus Power::isModeSupported(Mode type, bool *_aidl_return) {
     if (isDeviceSpecificModeSupported(type, _aidl_return)) {
         return ndk::ScopedAStatus::ok();
     }
-
-    switch (mServiceVersion) {
-        case 5:
-            if (static_cast<int32_t>(type) <= static_cast<int32_t>(Mode::AUTOMOTIVE_PROJECTION))
-                break;
-            [[fallthrough]];
-        case 4:
-            [[fallthrough]];
-        case 3:
-            if (static_cast<int32_t>(type) <= static_cast<int32_t>(Mode::GAME_LOADING))
-                break;
-            [[fallthrough]];
-        case 2:
-            [[fallthrough]];
-        case 1:
-            if (static_cast<int32_t>(type) <= static_cast<int32_t>(Mode::CAMERA_STREAMING_HIGH))
-                break;
-            [[fallthrough]];
-        default:
-            *_aidl_return = false;
-            return ndk::ScopedAStatus::ok();
+    auto it = kModeEarliestVersion.find(type);
+    if (it == kModeEarliestVersion.end() || mServiceVersion < it->second) {
+        *_aidl_return = false;
+        return ndk::ScopedAStatus::ok();
     }
     bool supported = HintManager::GetInstance()->IsHintSupported(toString(type));
     if (!supported && HintManager::GetInstance()->IsAdpfProfileSupported(toString(type))) {
@@ -199,22 +213,10 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
 }
 
 ndk::ScopedAStatus Power::isBoostSupported(Boost type, bool *_aidl_return) {
-    switch (mServiceVersion) {
-        case 5:
-            [[fallthrough]];
-        case 4:
-            [[fallthrough]];
-        case 3:
-            [[fallthrough]];
-        case 2:
-            [[fallthrough]];
-        case 1:
-            if (static_cast<int32_t>(type) <= static_cast<int32_t>(Boost::CAMERA_SHOT))
-                break;
-            [[fallthrough]];
-        default:
-            *_aidl_return = false;
-            return ndk::ScopedAStatus::ok();
+    auto it = kBoostEarliestVersion.find(type);
+    if (it == kBoostEarliestVersion.end() || mServiceVersion < kBoostEarliestVersion.at(type)) {
+        *_aidl_return = false;
+        return ndk::ScopedAStatus::ok();
     }
     bool supported = HintManager::GetInstance()->IsHintSupported(toString(type));
     if (!supported && HintManager::GetInstance()->IsAdpfProfileSupported(toString(type))) {
