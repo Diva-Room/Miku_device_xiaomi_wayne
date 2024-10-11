@@ -103,6 +103,23 @@ constexpr const char *AdpfVoteTypeToStr(AdpfVoteType voteType) {
     }
 }
 
+enum class ProcessTag : int32_t {
+    DEFAULT = 0,
+    // System UI related processes, e.g. sysui, nexuslauncher.
+    SYSTEM_UI
+};
+
+constexpr const char *toString(ProcessTag procTag) {
+    switch (procTag) {
+        case ProcessTag::DEFAULT:
+            return "DEFAULT";
+        case ProcessTag::SYSTEM_UI:
+            return "SYSTEM_UI";
+        default:
+            return "INVALID_PROC_TAG";
+    }
+}
+
 class Immobile {
   public:
     Immobile() {}

@@ -88,6 +88,7 @@ class PowerHintSession : public BnPowerHintSession, public Immobile {
             REQUIRES(mPowerHintSessionLock);
     void updateHeuristicBoost() REQUIRES(mPowerHintSessionLock);
     const std::shared_ptr<AdpfConfig> getAdpfProfile() const;
+    ProcessTag getProcessTag(int32_t tgid);
 
     // Data
     PowerSessionManagerT *mPSManager;
@@ -104,7 +105,9 @@ class PowerHintSession : public BnPowerHintSession, public Immobile {
     // Use the value of the last enum in enum_range +1 as array size
     std::array<bool, enum_size<SessionMode>()> mModes GUARDED_BY(mPowerHintSessionLock){};
     // Tag labeling what kind of session this is
-    const SessionTag mTag;
+    const SessionTag mSessTag;
+    // Pixel process tag for more granular session control.
+    const ProcessTag mProcTag{ProcessTag::DEFAULT};
     std::shared_ptr<AdpfConfig> mAdpfProfile;
     std::function<void(const std::shared_ptr<AdpfConfig>)> mOnAdpfUpdate;
     std::unique_ptr<SessionRecords> mSessionRecords GUARDED_BY(mPowerHintSessionLock) = nullptr;
