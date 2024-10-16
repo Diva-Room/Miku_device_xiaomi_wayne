@@ -179,7 +179,9 @@ PowerHintSession<HintManagerT, PowerSessionManagerT>::PowerHintSession(
       mDescriptor(std::make_shared<AppHintDesc>(mSessionId, tgid, uid, threadIds, tag,
                                                 std::chrono::nanoseconds(durationNs))),
       mAppDescriptorTrace(std::make_shared<AppDescriptorTrace>(mIdString)),
-      mAdpfProfile(HintManager::GetInstance()->GetAdpfProfile(toString(mSessTag))),
+      mAdpfProfile(mProcTag != ProcessTag::DEFAULT
+                           ? HintManager::GetInstance()->GetAdpfProfile(toString(mProcTag))
+                           : HintManager::GetInstance()->GetAdpfProfile(toString(mSessTag))),
       mOnAdpfUpdate(
               [this](const std::shared_ptr<AdpfConfig> config) { this->setAdpfProfile(config); }),
       mSessionRecords(getAdpfProfile()->mHeuristicBoostOn.has_value() &&
@@ -191,7 +193,12 @@ PowerHintSession<HintManagerT, PowerSessionManagerT>::PowerHintSession(
     ATRACE_CALL();
     ATRACE_INT(mAppDescriptorTrace->trace_target.c_str(), mDescriptor->targetNs.count());
     ATRACE_INT(mAppDescriptorTrace->trace_active.c_str(), mDescriptor->is_active.load());
-    HintManager::GetInstance()->RegisterAdpfUpdateEvent(toString(mSessTag), &mOnAdpfUpdate);
+
+    if (mProcTag != ProcessTag::DEFAULT) {
+        HintManager::GetInstance()->RegisterAdpfUpdateEvent(toString(mProcTag), &mOnAdpfUpdate);
+    } else {
+        HintManager::GetInstance()->RegisterAdpfUpdateEvent(toString(mSessTag), &mOnAdpfUpdate);
+    }
 
     mLastUpdatedTime = std::chrono::steady_clock::now();
     mPSManager->addPowerSession(mIdString, mDescriptor, mAppDescriptorTrace, threadIds);
@@ -304,7 +311,12 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::close()
     // Remove the session from PowerSessionManager first to avoid racing.
     mPSManager->removePowerSession(mSessionId);
     mDescriptor->is_active.store(false);
-    HintManager::GetInstance()->UnregisterAdpfUpdateEvent(toString(mSessTag), &mOnAdpfUpdate);
+
+    if (mProcTag != ProcessTag::DEFAULT) {
+        HintManager::GetInstance()->UnregisterAdpfUpdateEvent(toString(mProcTag), &mOnAdpfUpdate);
+    } else {
+        HintManager::GetInstance()->UnregisterAdpfUpdateEvent(toString(mSessTag), &mOnAdpfUpdate);
+    }
     ATRACE_INT(mAppDescriptorTrace->trace_min.c_str(), 0);
     return ndk::ScopedAStatus::ok();
 }
@@ -642,7 +654,9 @@ template <class HintManagerT, class PowerSessionManagerT>
 const std::shared_ptr<AdpfConfig>
 PowerHintSession<HintManagerT, PowerSessionManagerT>::getAdpfProfile() const {
     if (!mAdpfProfile) {
-        return HintManager::GetInstance()->GetAdpfProfile(toString(mSessTag));
+        return mProcTag == ProcessTag::DEFAULT
+                       ? HintManager::GetInstance()->GetAdpfProfile(toString(mSessTag))
+                       : HintManager::GetInstance()->GetAdpfProfile(toString(mProcTag));
     }
     return mAdpfProfile;
 }
