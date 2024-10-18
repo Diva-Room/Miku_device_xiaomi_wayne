@@ -19,7 +19,6 @@
 
 #include "PowerHintSession.h"
 
-#include <android-base/file.h>
 #include <android-base/logging.h>
 #include <android-base/parsedouble.h>
 #include <android-base/properties.h>
@@ -140,20 +139,6 @@ int64_t PowerHintSession<HintManagerT, PowerSessionManagerT>::convertWorkDuratio
 }
 
 template <class HintManagerT, class PowerSessionManagerT>
-ProcessTag PowerHintSession<HintManagerT, PowerSessionManagerT>::getProcessTag(int32_t tgid) {
-    auto const systemSessionCheckPath = "/proc/vendor_sched/is_tgid_system_ui";
-    // The file-write return status is true if the task belongs to systemUI or Launcher. Other task
-    // or invalid tgid will return a false value.
-    auto stat = ::android::base::WriteStringToFile(std::to_string(tgid), systemSessionCheckPath);
-    ALOGD("System session checking result: %d - %d", tgid, stat);
-    if (stat) {
-        return ProcessTag::SYSTEM_UI;
-    } else {
-        return ProcessTag::DEFAULT;
-    }
-}
-
-template <class HintManagerT, class PowerSessionManagerT>
 PowerHintSession<HintManagerT, PowerSessionManagerT>::PowerHintSession(
         int32_t tgid, int32_t uid, const std::vector<int32_t> &threadIds, int64_t durationNs,
         SessionTag tag)
@@ -164,9 +149,8 @@ PowerHintSession<HintManagerT, PowerSessionManagerT>::PowerHintSession(
       mDescriptor(std::make_shared<AppHintDesc>(mSessionId, tgid, uid, threadIds, tag,
                                                 std::chrono::nanoseconds(durationNs))),
       mAppDescriptorTrace(std::make_shared<AppDescriptorTrace>(mIdString)),
-      mSessTag(tag),
-      mProcTag(getProcessTag(tgid)),
-      mAdpfProfile(HintManager::GetInstance()->GetAdpfProfile(toString(mSessTag))),
+      mTag(tag),
+      mAdpfProfile(HintManager::GetInstance()->GetAdpfProfile(toString(mTag))),
       mOnAdpfUpdate(
               [this](const std::shared_ptr<AdpfConfig> config) { this->setAdpfProfile(config); }),
       mSessionRecords(getAdpfProfile()->mHeuristicBoostOn.has_value() &&
@@ -178,7 +162,7 @@ PowerHintSession<HintManagerT, PowerSessionManagerT>::PowerHintSession(
     ATRACE_CALL();
     ATRACE_INT(mAppDescriptorTrace->trace_target.c_str(), mDescriptor->targetNs.count());
     ATRACE_INT(mAppDescriptorTrace->trace_active.c_str(), mDescriptor->is_active.load());
-    HintManager::GetInstance()->RegisterAdpfUpdateEvent(toString(mSessTag), &mOnAdpfUpdate);
+    HintManager::GetInstance()->RegisterAdpfUpdateEvent(toString(mTag), &mOnAdpfUpdate);
 
     mLastUpdatedTime = std::chrono::steady_clock::now();
     mPSManager->addPowerSession(mIdString, mDescriptor, mAppDescriptorTrace, threadIds);
@@ -291,7 +275,7 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::close()
     // Remove the session from PowerSessionManager first to avoid racing.
     mPSManager->removePowerSession(mSessionId);
     mDescriptor->is_active.store(false);
-    HintManager::GetInstance()->UnregisterAdpfUpdateEvent(toString(mSessTag), &mOnAdpfUpdate);
+    HintManager::GetInstance()->UnregisterAdpfUpdateEvent(toString(mTag), &mOnAdpfUpdate);
     ATRACE_INT(mAppDescriptorTrace->trace_min.c_str(), 0);
     return ndk::ScopedAStatus::ok();
 }
@@ -622,14 +606,14 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::getSess
 
 template <class HintManagerT, class PowerSessionManagerT>
 SessionTag PowerHintSession<HintManagerT, PowerSessionManagerT>::getSessionTag() const {
-    return mSessTag;
+    return mTag;
 }
 
 template <class HintManagerT, class PowerSessionManagerT>
 const std::shared_ptr<AdpfConfig>
 PowerHintSession<HintManagerT, PowerSessionManagerT>::getAdpfProfile() const {
     if (!mAdpfProfile) {
-        return HintManager::GetInstance()->GetAdpfProfile(toString(mSessTag));
+        return HintManager::GetInstance()->GetAdpfProfile(toString(mTag));
     }
     return mAdpfProfile;
 }
