@@ -604,6 +604,12 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::sendHin
             case SessionHint::GPU_LOAD_RESET:
                 // TODO(kevindubois): add impl
                 break;
+            case SessionHint::CPU_LOAD_SPIKE:
+                // TODO(mattbuckley): add impl
+                break;
+            case SessionHint::GPU_LOAD_SPIKE:
+                // TODO(kevindubois): add impl
+                break;
             default:
                 ALOGE("Error: hint is invalid");
                 return ndk::ScopedAStatus::fromExceptionCode(EX_ILLEGAL_ARGUMENT);
