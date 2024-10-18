@@ -35,6 +35,7 @@
 #include "ChannelManager.h"
 #include "PowerHintSession.h"
 #include "PowerSessionManager.h"
+#include "SupportManager.h"
 
 namespace aidl {
 namespace google {
@@ -50,37 +51,6 @@ constexpr char kPowerHalRenderingProp[] = "vendor.powerhal.rendering";
 
 extern bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return);
 extern bool setDeviceSpecificMode(Mode type, bool enabled);
-
-const std::map<Mode, int32_t> kModeEarliestVersion = {
-  {Mode::DOUBLE_TAP_TO_WAKE, 1},
-  {Mode::LOW_POWER, 1},
-  {Mode::SUSTAINED_PERFORMANCE, 1},
-  {Mode::FIXED_PERFORMANCE, 1},
-  {Mode::VR, 1},
-  {Mode::LAUNCH, 1},
-  {Mode::EXPENSIVE_RENDERING, 1},
-  {Mode::INTERACTIVE, 1},
-  {Mode::DEVICE_IDLE, 1},
-  {Mode::DISPLAY_INACTIVE, 1},
-  {Mode::AUDIO_STREAMING_LOW_LATENCY, 1},
-  {Mode::CAMERA_STREAMING_SECURE, 1},
-  {Mode::CAMERA_STREAMING_LOW, 1},
-  {Mode::CAMERA_STREAMING_MID, 1},
-  {Mode::CAMERA_STREAMING_HIGH, 1},
-  {Mode::GAME, 3},
-  {Mode::GAME_LOADING, 3},
-  {Mode::DISPLAY_CHANGE, 5},
-  {Mode::AUTOMOTIVE_PROJECTION, 5},
-};
-
-const std::map<Boost, int32_t> kBoostEarliestVersion = {
-  {Boost::INTERACTION, 1},
-  {Boost::DISPLAY_UPDATE_IMMINENT, 1},
-  {Boost::ML_ACC, 1},
-  {Boost::AUDIO_LAUNCH, 1},
-  {Boost::CAMERA_LAUNCH, 1},
-  {Boost::CAMERA_SHOT, 1},
-};
 
 Power::Power()
     : mInteractionHandler(nullptr),
@@ -111,6 +81,8 @@ Power::Power()
 
     auto status = this->getInterfaceVersion(&mServiceVersion);
     LOG(INFO) << "PowerHAL InterfaceVersion:" << mServiceVersion << " isOK: " << status.isOk();
+
+    mSupportInfo = SupportManager::makeSupportInfo();
 }
 
 ndk::ScopedAStatus Power::setMode(Mode type, bool enabled) {
@@ -166,16 +138,8 @@ ndk::ScopedAStatus Power::isModeSupported(Mode type, bool *_aidl_return) {
     if (isDeviceSpecificModeSupported(type, _aidl_return)) {
         return ndk::ScopedAStatus::ok();
     }
-    auto it = kModeEarliestVersion.find(type);
-    if (it == kModeEarliestVersion.end() || mServiceVersion < it->second) {
-        *_aidl_return = false;
-        return ndk::ScopedAStatus::ok();
-    }
-    bool supported = HintManager::GetInstance()->IsHintSupported(toString(type));
-    if (!supported && HintManager::GetInstance()->IsAdpfProfileSupported(toString(type))) {
-        supported = true;
-    }
-    LOG(INFO) << "Power mode " << toString(type) << " isModeSupported: " << supported;
+    bool supported = supportFromBitset(mSupportInfo.modes, type);
+    LOG(INFO) << "Power Mode " << toString(type) << " isModeSupported: " << supported;
     *_aidl_return = supported;
     return ndk::ScopedAStatus::ok();
 }
@@ -214,16 +178,8 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
 }
 
 ndk::ScopedAStatus Power::isBoostSupported(Boost type, bool *_aidl_return) {
-    auto it = kBoostEarliestVersion.find(type);
-    if (it == kBoostEarliestVersion.end() || mServiceVersion < kBoostEarliestVersion.at(type)) {
-        *_aidl_return = false;
-        return ndk::ScopedAStatus::ok();
-    }
-    bool supported = HintManager::GetInstance()->IsHintSupported(toString(type));
-    if (!supported && HintManager::GetInstance()->IsAdpfProfileSupported(toString(type))) {
-        supported = true;
-    }
-    LOG(INFO) << "Power boost " << toString(type) << " isBoostSupported: " << supported;
+    bool supported = supportFromBitset(mSupportInfo.boosts, type);
+    LOG(INFO) << "Power oost " << toString(type) << " isBoostSupported: " << supported;
     *_aidl_return = supported;
     return ndk::ScopedAStatus::ok();
 }
@@ -300,6 +256,12 @@ ndk::ScopedAStatus Power::getSessionChannel(int32_t tgid, int32_t uid,
 
 ndk::ScopedAStatus Power::closeSessionChannel(int32_t tgid, int32_t uid) {
     ChannelManager<>::getInstance()->closeChannel(tgid, uid);
+    return ndk::ScopedAStatus::ok();
+}
+
+ndk::ScopedAStatus Power::getSupportInfo(SupportInfo *_aidl_return) {
+    // Copy the support object into the binder
+    *_aidl_return = mSupportInfo;
     return ndk::ScopedAStatus::ok();
 }
 

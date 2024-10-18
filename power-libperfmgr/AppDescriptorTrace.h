@@ -30,11 +30,6 @@ namespace power {
 namespace impl {
 namespace pixel {
 
-template <class T>
-constexpr size_t enum_size() {
-    return static_cast<size_t>(*(ndk::enum_range<T>().end() - 1)) + 1;
-}
-
 // The App Hint Descriptor struct manages information necessary
 // to calculate the next uclamp min value from the PID function
 // and is separate so that it can be used as a pointer for
