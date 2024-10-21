@@ -204,6 +204,22 @@ binder_status_t Power::dump(int fd, const char **, uint32_t) {
     return STATUS_OK;
 }
 
+ndk::ScopedAStatus Power::getCpuHeadroom(const CpuHeadroomParams &_, std::vector<float> *) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Power::getGpuHeadroom(const GpuHeadroomParams &_, float *) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Power::getCpuHeadroomMinIntervalMillis(int64_t *) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Power::getGpuHeadroomMinIntervalMillis(int64_t *) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
 ndk::ScopedAStatus Power::createHintSession(int32_t tgid, int32_t uid,
                                             const std::vector<int32_t> &threadIds,
                                             int64_t durationNanos,
