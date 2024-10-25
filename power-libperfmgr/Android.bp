@@ -42,7 +42,6 @@ cc_binary {
         "PowerExt.cpp",
         "PowerHintSession.cpp",
         "PowerSessionManager.cpp",
-        "SupportManager.cpp",
         "UClampVoter.cpp",
         "SessionRecords.cpp",
         "SessionChannel.cpp",

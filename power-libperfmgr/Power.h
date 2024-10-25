@@ -51,15 +51,12 @@ class Power : public ::aidl::android::hardware::power::BnPower {
     ndk::ScopedAStatus getSessionChannel(int32_t tgid, int32_t uid,
                                          ChannelConfig *_aidl_return) override;
     ndk::ScopedAStatus closeSessionChannel(int32_t tgid, int32_t uid) override;
-    ndk::ScopedAStatus getSupportInfo(SupportInfo *_aidl_return);
     binder_status_t dump(int fd, const char **args, uint32_t numArgs) override;
 
   private:
-    void initSupportStatus();
     std::unique_ptr<InteractionHandler> mInteractionHandler;
     std::atomic<bool> mSustainedPerfModeOn;
     int32_t mServiceVersion;
-    SupportInfo mSupportInfo;
 };
 
 }  // namespace pixel
