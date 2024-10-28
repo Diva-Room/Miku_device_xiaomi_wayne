@@ -24,6 +24,7 @@
 #include <aidl/android/hardware/power/Mode.h>
 #include <aidl/android/hardware/power/SessionConfig.h>
 #include <aidl/android/hardware/power/SessionTag.h>
+#include <aidl/android/hardware/power/SupportInfo.h>
 #include <aidl/android/hardware/power/WorkDuration.h>
 #include <android-base/thread_annotations.h>
 #include <fmq/AidlMessageQueue.h>
@@ -34,6 +35,16 @@
 namespace aidl::google::hardware::power::impl::pixel {
 
 using namespace android::hardware::power;
+
+template <class T>
+constexpr size_t enum_size() {
+    return static_cast<size_t>(*(ndk::enum_range<T>().end() - 1)) + 1;
+}
+
+template <class E>
+bool supportFromBitset(int64_t &supportInt, E type) {
+    return (supportInt >> static_cast<int>(type)) % 2;
+}
 
 using ::android::AidlMessageQueue;
 using ::android::hardware::EventFlag;
