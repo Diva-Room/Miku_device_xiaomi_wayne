@@ -81,6 +81,7 @@ constexpr SupportList<SessionHint> kSessionHintEarliestVersion = {
 
 constexpr SupportList<SessionMode> kSessionModeEarliestVersion = {
   {SessionMode::POWER_EFFICIENCY, 5},
+  {SessionMode::GRAPHICS_PIPELINE, 6},
 };
 
 constexpr SupportList<SessionTag> kSessionTagEarliestVersion {
@@ -197,6 +198,8 @@ bool SupportManager::sessionModeSupported(SessionMode type) {
     }
     switch (type) {
         case SessionMode::POWER_EFFICIENCY:
+            return false;
+        case SessionMode::GRAPHICS_PIPELINE:
             return false;
         default:
             return true;
