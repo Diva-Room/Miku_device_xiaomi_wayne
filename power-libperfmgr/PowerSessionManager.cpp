@@ -40,6 +40,7 @@ namespace impl {
 namespace pixel {
 
 using ::android::perfmgr::HintManager;
+constexpr char kGameModeName[] = "GAME";
 
 namespace {
 /* there is no glibc or bionic wrapper */
@@ -77,13 +78,22 @@ static int set_uclamp(int tid, UclampRange range) {
 }
 }  // namespace
 
-// TODO(jimmyshiu@): Deprecated. Remove once all powerhint.json up-to-date.
 template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::updateHintMode(const std::string &mode, bool enabled) {
     ALOGD("%s %s:%b", __func__, mode.c_str(), enabled);
-    if (enabled && HintManagerT::GetInstance()->GetAdpfProfileFromDoHint()) {
-        HintManagerT::GetInstance()->SetAdpfProfileFromDoHint(mode);
+    if (mode.compare(kGameModeName) == 0) {
+        mGameModeEnabled = enabled;
     }
+
+    // TODO(jimmyshiu@): Deprecated. Remove once all powerhint.json up-to-date.
+    if (enabled && HintManager::GetInstance()->GetAdpfProfileFromDoHint()) {
+        HintManager::GetInstance()->SetAdpfProfileFromDoHint(mode);
+    }
+}
+
+template <class HintManagerT>
+bool PowerSessionManager<HintManagerT>::getGameModeEnableState() {
+    return mGameModeEnabled;
 }
 
 template <class HintManagerT>

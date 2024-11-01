@@ -92,6 +92,7 @@ class PowerSessionManager : public Immobile {
     // Only for testing
     void clear();
     std::shared_ptr<void> getSession(int64_t sessionId);
+    bool getGameModeEnableState();
 
   private:
     std::optional<bool> isAnyAppSessionActive();
@@ -138,6 +139,8 @@ class PowerSessionManager : public Immobile {
 
     std::mutex mSessionMapMutex;
     std::unordered_map<int, std::weak_ptr<void>> mSessionMap GUARDED_BY(mSessionMapMutex);
+
+    std::atomic<bool> mGameModeEnabled{false};
 };
 
 }  // namespace pixel
