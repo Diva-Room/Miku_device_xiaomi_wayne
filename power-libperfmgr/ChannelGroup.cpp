@@ -123,6 +123,7 @@ void ChannelGroup<PowerSessionManagerT, PowerHintSessionT>::runChannelGroup() {
     std::vector<android::hardware::power::WorkDuration> durations;
     durations.reserve(kFMQQueueSize);
     messages.reserve(kFMQQueueSize);
+
     while (!mDestructing) {
         messages.clear();
         flag->wait(kWriteBits, &flagState, 0, true);
@@ -155,6 +156,7 @@ void ChannelGroup<PowerSessionManagerT, PowerHintSessionT>::runChannelGroup() {
                     blocklist.insert(channel->getUid());
                     continue;
                 }
+                flag->wake(mChannels[channelNum]->getReadBitmask());
                 for (int messageIndex = 0; messageIndex < messages.size() && !mDestructing;
                      ++messageIndex) {
                     ChannelMessage &message = messages[messageIndex];
