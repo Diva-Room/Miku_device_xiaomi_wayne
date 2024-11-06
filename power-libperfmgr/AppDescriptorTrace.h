@@ -80,6 +80,8 @@ struct AppDescriptorTrace {
         trace_cpu_duration = StringPrintf("adpf.%s-%s", idString.c_str(), "cpu_duration");
         trace_gpu_duration = StringPrintf("adpf.%s-%s", idString.c_str(), "gpu_duration");
         trace_gpu_capacity = StringPrintf("adpf.%s-%s", idString.c_str(), "gpu_capacity");
+        trace_game_mode_fps = "adpf.sf.gameModeFPS";
+        trace_game_mode_fps_jitters = "adpf.sf.gameModeFPSJitters";
     }
 
     // Trace values
@@ -114,6 +116,8 @@ struct AppDescriptorTrace {
     std::string trace_cpu_duration;
     std::string trace_gpu_duration;
     std::string trace_gpu_capacity;
+    std::string trace_game_mode_fps;
+    std::string trace_game_mode_fps_jitters;
 };
 
 }  // namespace pixel

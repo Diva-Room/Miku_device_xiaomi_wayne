@@ -37,6 +37,7 @@ class SessionRecords {
         int32_t startIntervalUs{0};
         int32_t totalDurationUs{0};
         bool isMissedCycle{false};
+        bool isFPSJitter{false};
     };
 
   public:
@@ -44,13 +45,17 @@ class SessionRecords {
     ~SessionRecords() = default;
 
     void addReportedDurations(const std::vector<WorkDuration> &actualDurationsNs,
-                              int64_t targetDurationNs);
+                              int64_t targetDurationNs, bool computeFPSJitters = false);
     std::optional<int32_t> getMaxDuration();
     std::optional<int32_t> getAvgDuration();
     int32_t getNumOfRecords();
     int32_t getNumOfMissedCycles();
     bool isLowFrameRate(int32_t fpsLowRateThreshold);
     void resetRecords();
+    // It will only return valid value when the computeFPSJitters is enabled while
+    // calling addReportedDurations. It's mainly for game mode FPS monitoring.
+    int32_t getLatestFPS() const;
+    int32_t getNumOfFPSJitters() const;
 
   private:
     const int32_t kMaxNumOfRecords;
@@ -65,6 +70,12 @@ class SessionRecords {
     int32_t mNumOfMissedCycles{0};
     int32_t mNumOfFrames{0};
     int64_t mSumOfDurationsUs{0};
+
+    // Compute the sum of start interval for the last few frames.
+    // It can be beneficial for computing the FPS jitters.
+    int32_t mLatestStartIntervalSumUs{0};
+    int32_t mNumOfFrameFPSJitters{0};
+    int32_t mAddedFramesForFPSCheck{0};
 };
 
 }  // namespace pixel

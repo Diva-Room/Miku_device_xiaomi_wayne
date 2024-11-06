@@ -414,6 +414,12 @@ void PowerHintSession<HintManagerT, PowerSessionManagerT>::updateHeuristicBoost(
     ATRACE_INT(mAppDescriptorTrace->trace_avg_duration.c_str(), avgDurationUs.value());
     ATRACE_INT(mAppDescriptorTrace->trace_max_duration.c_str(), maxDurationUs.value());
     ATRACE_INT(mAppDescriptorTrace->trace_low_frame_rate.c_str(), isLowFPS);
+    if (mSessTag == SessionTag::SURFACEFLINGER) {
+        ATRACE_INT(mAppDescriptorTrace->trace_game_mode_fps.c_str(),
+                   mSessionRecords->getLatestFPS());
+        ATRACE_INT(mAppDescriptorTrace->trace_game_mode_fps_jitters.c_str(),
+                   mSessionRecords->getNumOfFPSJitters());
+    }
 }
 
 template <class HintManagerT, class PowerSessionManagerT>
@@ -467,7 +473,9 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::reportA
             adpfConfig->mHeuristicBoostOn.has_value() && adpfConfig->mHeuristicBoostOn.value();
 
     if (hboostEnabled) {
-        mSessionRecords->addReportedDurations(actualDurations, mDescriptor->targetNs.count());
+        mSessionRecords->addReportedDurations(
+                actualDurations, mDescriptor->targetNs.count(),
+                mSessTag == SessionTag::SURFACEFLINGER && mPSManager->getGameModeEnableState());
         mPSManager->updateHboostStatistics(mSessionId, mJankyLevel, actualDurations.size());
         updateHeuristicBoost();
     }

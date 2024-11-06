@@ -27,13 +27,15 @@ namespace power {
 namespace impl {
 namespace pixel {
 
+static constexpr int32_t kTotalFramesForFPSCheck = 3;
+
 SessionRecords::SessionRecords(const int32_t maxNumOfRecords, const double jankCheckTimeFactor)
     : kMaxNumOfRecords(maxNumOfRecords), kJankCheckTimeFactor(jankCheckTimeFactor) {
     mRecords.resize(maxNumOfRecords);
 }
 
 void SessionRecords::addReportedDurations(const std::vector<WorkDuration> &actualDurationsNs,
-                                          int64_t targetDurationNs) {
+                                          int64_t targetDurationNs, bool computeFPSJitters) {
     for (auto &duration : actualDurationsNs) {
         int32_t totalDurationUs = duration.durationNanos / 1000;
 
@@ -46,6 +48,12 @@ void SessionRecords::addReportedDurations(const std::vector<WorkDuration> &actua
                 mNumOfMissedCycles--;
                 if (mNumOfMissedCycles < 0) {
                     LOG(ERROR) << "Invalid number of missed cycles: " << mNumOfMissedCycles;
+                }
+            }
+            if (mRecords[indexOfRecordToRemove].isFPSJitter) {
+                mNumOfFrameFPSJitters--;
+                if (mNumOfFrameFPSJitters < 0) {
+                    LOG(ERROR) << "Invalid number of FPS jitter frames: " << mNumOfFrameFPSJitters;
                 }
             }
             mNumOfFrames--;
@@ -67,8 +75,36 @@ void SessionRecords::addReportedDurations(const std::vector<WorkDuration> &actua
         }
         mLastStartTimeNs = startTimeNs;
 
+        // Track the number of frame FPS jitters.
+        // A frame is evaluated as FPS jitter if its startInterval is not less
+        // than previous three frames' average startIntervals.
+        bool FPSJitter = false;
+        if (computeFPSJitters) {
+            if (mAddedFramesForFPSCheck < kTotalFramesForFPSCheck) {
+                if (startIntervalUs > 0) {
+                    mLatestStartIntervalSumUs += startIntervalUs;
+                    mAddedFramesForFPSCheck++;
+                }
+            } else {
+                if (startIntervalUs > (1.4 * mLatestStartIntervalSumUs / kTotalFramesForFPSCheck)) {
+                    FPSJitter = true;
+                    mNumOfFrameFPSJitters++;
+                }
+                int32_t oldRecordIndex = mLatestRecordIndex - kTotalFramesForFPSCheck;
+                if (oldRecordIndex < 0) {
+                    oldRecordIndex += kMaxNumOfRecords;
+                }
+                mLatestStartIntervalSumUs +=
+                        startIntervalUs - mRecords[oldRecordIndex].startIntervalUs;
+            }
+        } else {
+            mLatestStartIntervalSumUs = 0;
+            mAddedFramesForFPSCheck = 0;
+        }
+
         bool cycleMissed = totalDurationUs > (targetDurationNs / 1000) * kJankCheckTimeFactor;
-        mRecords[mLatestRecordIndex] = CycleRecord{startIntervalUs, totalDurationUs, cycleMissed};
+        mRecords[mLatestRecordIndex] =
+                CycleRecord{startIntervalUs, totalDurationUs, cycleMissed, FPSJitter};
         mNumOfFrames++;
         if (cycleMissed) {
             mNumOfMissedCycles++;
@@ -133,6 +169,14 @@ void SessionRecords::resetRecords() {
     mNumOfFrames = 0;
     mSumOfDurationsUs = 0;
     mRecordsIndQueue.clear();
+}
+
+int32_t SessionRecords::getLatestFPS() const {
+    return 1000000 * kTotalFramesForFPSCheck / mLatestStartIntervalSumUs;
+}
+
+int32_t SessionRecords::getNumOfFPSJitters() const {
+    return mNumOfFrameFPSJitters;
 }
 
 }  // namespace pixel

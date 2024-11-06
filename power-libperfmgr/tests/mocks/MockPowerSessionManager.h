@@ -71,6 +71,7 @@ class MockPowerSessionManager {
     MOCK_METHOD(void, updateHboostStatistics,
                 (int64_t sessionId, impl::pixel::SessionJankyLevel jankyLevel, int32_t numOfFrames),
                 ());
+    MOCK_METHOD(bool, getGameModeEnableState, (), ());
 
     static testing::NiceMock<MockPowerSessionManager> *getInstance() {
         static testing::NiceMock<MockPowerSessionManager> instance{};
