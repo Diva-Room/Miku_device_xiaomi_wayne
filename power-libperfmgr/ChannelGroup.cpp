@@ -140,10 +140,10 @@ void ChannelGroup<PowerSessionManagerT, PowerHintSessionT>::runChannelGroup() {
                 // Drop the lowest set write bit
                 flagState &= (flagState - 1);
                 auto &channel = mChannels[channelNum];
-                if (blocklist.contains(channel->getUid())) {
+                if (!channel || !channel->isValid()) {
                     continue;
                 }
-                if (!channel || !channel->isValid()) {
+                if (blocklist.contains(channel->getUid())) {
                     continue;
                 }
                 int toRead = channel->getQueue()->availableToRead();
