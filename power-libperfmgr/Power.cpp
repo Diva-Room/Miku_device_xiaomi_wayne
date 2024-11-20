@@ -281,6 +281,16 @@ ndk::ScopedAStatus Power::getSupportInfo(SupportInfo *_aidl_return) {
     return ndk::ScopedAStatus::ok();
 }
 
+ndk::ScopedAStatus Power::sendCompositionData(const std::vector<CompositionData> &) {
+    LOG(INFO) << "Composition data received!";
+    return ndk::ScopedAStatus::ok();
+}
+
+ndk::ScopedAStatus Power::sendCompositionUpdate(const CompositionUpdate &) {
+    LOG(INFO) << "Composition update received!";
+    return ndk::ScopedAStatus::ok();
+}
+
 }  // namespace pixel
 }  // namespace impl
 }  // namespace power

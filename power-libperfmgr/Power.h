@@ -59,6 +59,8 @@ class Power : public ::aidl::android::hardware::power::BnPower {
     ndk::ScopedAStatus closeSessionChannel(int32_t tgid, int32_t uid) override;
     ndk::ScopedAStatus getSupportInfo(SupportInfo *_aidl_return);
     binder_status_t dump(int fd, const char **args, uint32_t numArgs) override;
+    ndk::ScopedAStatus sendCompositionData(const std::vector<CompositionData> &in_data) override;
+    ndk::ScopedAStatus sendCompositionUpdate(const CompositionUpdate &in_update) override;
 
   private:
     void initSupportStatus();
