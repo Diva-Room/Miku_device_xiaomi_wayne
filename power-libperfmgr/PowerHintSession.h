@@ -87,6 +87,7 @@ class PowerHintSession : public BnPowerHintSession, public Immobile {
                                              double durationVariance, bool isLowFPS)
             REQUIRES(mPowerHintSessionLock);
     void updateHeuristicBoost() REQUIRES(mPowerHintSessionLock);
+    void resetSessionHeuristicStates() REQUIRES(mPowerHintSessionLock);
     const std::shared_ptr<AdpfConfig> getAdpfProfile() const;
     ProcessTag getProcessTag(int32_t tgid);
 

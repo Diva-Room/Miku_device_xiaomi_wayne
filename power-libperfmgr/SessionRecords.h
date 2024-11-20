@@ -50,6 +50,7 @@ class SessionRecords {
     int32_t getNumOfRecords();
     int32_t getNumOfMissedCycles();
     bool isLowFrameRate(int32_t fpsLowRateThreshold);
+    void resetRecords();
 
   private:
     const int32_t kMaxNumOfRecords;

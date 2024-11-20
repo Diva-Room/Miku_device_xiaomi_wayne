@@ -125,6 +125,16 @@ bool SessionRecords::isLowFrameRate(int32_t fpsLowRateThreshold) {
     return false;
 }
 
+void SessionRecords::resetRecords() {
+    mAvgDurationUs = 0;
+    mLastStartTimeNs = 0;
+    mLatestRecordIndex = -1;
+    mNumOfMissedCycles = 0;
+    mNumOfFrames = 0;
+    mSumOfDurationsUs = 0;
+    mRecordsIndQueue.clear();
+}
+
 }  // namespace pixel
 }  // namespace impl
 }  // namespace power
