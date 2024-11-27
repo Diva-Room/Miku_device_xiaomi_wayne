@@ -155,6 +155,12 @@ SupportInfo SupportManager::makeSupportInfo() {
             .maxBatchSize = 1,
             .alwaysBatch = false,
     };
+    out.headroom = {
+        .isCpuSupported = false,
+        .isGpuSupported = false,
+        .cpuMinIntervalMillis = 0,
+        .gpuMinIntervalMillis = 0,
+    };
 
     return out;
 }

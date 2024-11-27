@@ -43,8 +43,6 @@ class Power : public ::aidl::android::hardware::power::BnPower {
                                       CpuHeadroomResult *_aidl_return) override;
     ndk::ScopedAStatus getGpuHeadroom(const GpuHeadroomParams &in_params,
                                       GpuHeadroomResult *_aidl_return) override;
-    ndk::ScopedAStatus getCpuHeadroomMinIntervalMillis(int64_t *_aidl_return) override;
-    ndk::ScopedAStatus getGpuHeadroomMinIntervalMillis(int64_t *_aidl_return) override;
     ndk::ScopedAStatus createHintSession(int32_t tgid, int32_t uid,
                                          const std::vector<int32_t> &threadIds,
                                          int64_t durationNanos,
