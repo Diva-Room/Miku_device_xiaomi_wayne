@@ -36,11 +36,14 @@ class MockPowerSessionManager {
                 (const std::string &idString,
                  const std::shared_ptr<impl::pixel::AppHintDesc> &sessionDescriptor,
                  const std::shared_ptr<impl::pixel::AppDescriptorTrace> &sessionTrace,
-                 const std::vector<int32_t> &threadIds),
+                 const std::vector<int32_t> &threadIds, const impl::pixel::ProcessTag procTag),
                 ());
-    MOCK_METHOD(void, removePowerSession, (int64_t sessionId), ());
+    MOCK_METHOD(void, removePowerSession,
+                (int64_t sessionId, const impl::pixel::ProcessTag procTag), ());
     MOCK_METHOD(void, setThreadsFromPowerSession,
-                (int64_t sessionId, const std::vector<int32_t> &threadIds), ());
+                (int64_t sessionId, const std::vector<int32_t> &threadIds,
+                 const impl::pixel::ProcessTag procTag),
+                ());
     MOCK_METHOD(void, pause, (int64_t sessionId), ());
     MOCK_METHOD(void, resume, (int64_t sessionId), ());
     MOCK_METHOD(void, updateUniversalBoostMode, (), ());

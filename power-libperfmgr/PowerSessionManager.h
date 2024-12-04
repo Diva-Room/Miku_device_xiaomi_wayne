@@ -23,6 +23,7 @@
 #include <mutex>
 #include <optional>
 
+#include "AdpfTypes.h"
 #include "AppHintDesc.h"
 #include "BackgroundWorker.h"
 #include "GpuCapacityNode.h"
@@ -50,10 +51,11 @@ class PowerSessionManager : public Immobile {
     void addPowerSession(const std::string &idString,
                          const std::shared_ptr<AppHintDesc> &sessionDescriptor,
                          const std::shared_ptr<AppDescriptorTrace> &sessionTrace,
-                         const std::vector<int32_t> &threadIds);
-    void removePowerSession(int64_t sessionId);
+                         const std::vector<int32_t> &threadIds, const ProcessTag procTag);
+    void removePowerSession(int64_t sessionId, const ProcessTag procTag);
     // Replace current threads in session with threadIds
-    void setThreadsFromPowerSession(int64_t sessionId, const std::vector<int32_t> &threadIds);
+    void setThreadsFromPowerSession(int64_t sessionId, const std::vector<int32_t> &threadIds,
+                                    const ProcessTag procTag);
     // Pause and resume power hint session
     void pause(int64_t sessionId);
     void resume(int64_t sessionId);

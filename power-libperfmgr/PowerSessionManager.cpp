@@ -27,7 +27,6 @@
 #include <sys/syscall.h>
 #include <utils/Trace.h>
 
-#include "AdpfTypes.h"
 #include "AppDescriptorTrace.h"
 #include "AppHintDesc.h"
 #include "tests/mocks/MockHintManager.h"
@@ -100,7 +99,7 @@ template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::addPowerSession(
         const std::string &idString, const std::shared_ptr<AppHintDesc> &sessionDescriptor,
         const std::shared_ptr<AppDescriptorTrace> &sessionTrace,
-        const std::vector<int32_t> &threadIds) {
+        const std::vector<int32_t> &threadIds, const ProcessTag procTag) {
     if (!sessionDescriptor) {
         ALOGE("sessionDescriptor is null. PowerSessionManager failed to add power session: %s",
               idString.c_str());
@@ -129,11 +128,12 @@ void PowerSessionManager<HintManagerT>::addPowerSession(
         ALOGE("sessionTaskMap failed to add power session: %" PRId64, sessionDescriptor->sessionId);
     }
 
-    setThreadsFromPowerSession(sessionDescriptor->sessionId, threadIds);
+    setThreadsFromPowerSession(sessionDescriptor->sessionId, threadIds, procTag);
 }
 
 template <class HintManagerT>
-void PowerSessionManager<HintManagerT>::removePowerSession(int64_t sessionId) {
+void PowerSessionManager<HintManagerT>::removePowerSession(int64_t sessionId,
+                                                           const ProcessTag procTag) {
     // To remove a session we also need to undo the effects the session
     // has on currently enabled votes which means setting vote to inactive
     // and then forceing a uclamp update to occur
@@ -150,9 +150,19 @@ void PowerSessionManager<HintManagerT>::removePowerSession(int64_t sessionId) {
         mSessionTaskMap.remove(sessionId);
     }
 
-    for (auto tid : removedThreads) {
-        if (!SetTaskProfiles(tid, {"NoResetUclampGrp"})) {
-            ALOGE("Failed to set NoResetUclampGrp task profile for tid:%d", tid);
+    if (procTag == ProcessTag::SYSTEM_UI) {
+        for (auto tid : removedThreads) {
+            if (!SetTaskProfiles(tid, {"SCHED_QOS_SENSITIVE_EXTREME_CLEAR"})) {
+                ALOGE("Failed to set SCHED_QOS_SENSITIVE_EXTREME_CLEAR task profile for tid:%d",
+                      tid);
+            }
+        }
+    } else {
+        for (auto tid : removedThreads) {
+            if (!SetTaskProfiles(tid, {"SCHED_QOS_SENSITIVE_STANDARD_CLEAR"})) {
+                ALOGE("Failed to set SCHED_QOS_SENSITIVE_STANDARD_CLEAR task profile for tid:%d",
+                      tid);
+            }
         }
     }
 
@@ -161,7 +171,7 @@ void PowerSessionManager<HintManagerT>::removePowerSession(int64_t sessionId) {
 
 template <class HintManagerT>
 void PowerSessionManager<HintManagerT>::setThreadsFromPowerSession(
-        int64_t sessionId, const std::vector<int32_t> &threadIds) {
+        int64_t sessionId, const std::vector<int32_t> &threadIds, const ProcessTag procTag) {
     std::vector<pid_t> addedThreads;
     std::vector<pid_t> removedThreads;
     forceSessionActive(sessionId, false);
@@ -169,14 +179,33 @@ void PowerSessionManager<HintManagerT>::setThreadsFromPowerSession(
         std::lock_guard<std::mutex> lock(mSessionTaskMapMutex);
         mSessionTaskMap.replace(sessionId, threadIds, &addedThreads, &removedThreads);
     }
-    for (auto tid : addedThreads) {
-        if (!SetTaskProfiles(tid, {"ResetUclampGrp"})) {
-            ALOGE("Failed to set ResetUclampGrp task profile for tid:%d", tid);
+    if (procTag == ProcessTag::SYSTEM_UI) {
+        for (auto tid : addedThreads) {
+            if (!SetTaskProfiles(tid, {"SCHED_QOS_SENSITIVE_EXTREME_SET"})) {
+                ALOGE("Failed to set SCHED_QOS_SENSITIVE_EXTREME_SET task profile for tid:%d", tid);
+            }
+        }
+    } else {
+        for (auto tid : addedThreads) {
+            if (!SetTaskProfiles(tid, {"SCHED_QOS_SENSITIVE_STANDARD_SET"})) {
+                ALOGE("Failed to set SCHED_QOS_SENSITIVE_STANDARD_SET task profile for tid:%d",
+                      tid);
+            }
         }
     }
-    for (auto tid : removedThreads) {
-        if (!SetTaskProfiles(tid, {"NoResetUclampGrp"})) {
-            ALOGE("Failed to set NoResetUclampGrp task profile for tid:%d", tid);
+    if (procTag == ProcessTag::SYSTEM_UI) {
+        for (auto tid : removedThreads) {
+            if (!SetTaskProfiles(tid, {"SCHED_QOS_SENSITIVE_EXTREME_CLEAR"})) {
+                ALOGE("Failed to set SCHED_QOS_SENSITIVE_EXTREME_CLEAR task profile for tid:%d",
+                      tid);
+            }
+        }
+    } else {
+        for (auto tid : removedThreads) {
+            if (!SetTaskProfiles(tid, {"SCHED_QOS_SENSITIVE_STANDARD_CLEAR"})) {
+                ALOGE("Failed to set SCHED_QOS_SENSITIVE_STANDARD_CLEAR task profile for tid:%d",
+                      tid);
+            }
         }
     }
     forceSessionActive(sessionId, true);
