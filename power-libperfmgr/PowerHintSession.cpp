@@ -60,6 +60,7 @@ static inline int64_t ns_to_100us(int64_t ns) {
 
 static const char systemSessionCheckPath[] = "/proc/vendor_sched/is_tgid_system_ui";
 static const bool systemSessionCheckNodeExist = access(systemSessionCheckPath, W_OK) == 0;
+static constexpr int32_t kTargetDurationChangeThreshold = 30;  // Percentage change threshold
 
 }  // namespace
 
@@ -335,11 +336,16 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::updateT
     }
     targetDurationNanos = targetDurationNanos * getAdpfProfile()->mTargetTimeFactor;
 
-    // Reset session records and heuristic boost states when target duration changes.
+    // Reset session records and heuristic boost states when the percentage change of target
+    // duration is over the threshold.
     if (targetDurationNanos != mDescriptor->targetNs.count() &&
         getAdpfProfile()->mHeuristicBoostOn.has_value() &&
         getAdpfProfile()->mHeuristicBoostOn.value()) {
-        resetSessionHeuristicStates();
+        auto lastTargetNs = mDescriptor->targetNs.count();
+        if (abs(targetDurationNanos - lastTargetNs) >
+            lastTargetNs / 100 * kTargetDurationChangeThreshold) {
+            resetSessionHeuristicStates();
+        }
     }
 
     mDescriptor->targetNs = std::chrono::nanoseconds(targetDurationNanos);
