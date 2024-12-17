@@ -599,7 +599,7 @@ ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::sendHin
                                                                adpfConfig->mStaleTimeFactor / 2.0));
                 break;
             case SessionHint::POWER_EFFICIENCY:
-                setMode(SessionMode::POWER_EFFICIENCY, true);
+                setModeLocked(SessionMode::POWER_EFFICIENCY, true);
                 break;
             case SessionHint::GPU_LOAD_UP:
                 mPSManager->voteSet(mSessionId, AdpfVoteType::GPU_LOAD_UP,
@@ -634,6 +634,12 @@ template <class HintManagerT, class PowerSessionManagerT>
 ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::setMode(SessionMode mode,
                                                                                  bool enabled) {
     std::scoped_lock lock{mPowerHintSessionLock};
+    return setModeLocked(mode, enabled);
+}
+
+template <class HintManagerT, class PowerSessionManagerT>
+ndk::ScopedAStatus PowerHintSession<HintManagerT, PowerSessionManagerT>::setModeLocked(
+        SessionMode mode, bool enabled) {
     if (mSessionClosed) {
         ALOGE("Error: session is dead");
         return ndk::ScopedAStatus::fromExceptionCode(EX_ILLEGAL_STATE);

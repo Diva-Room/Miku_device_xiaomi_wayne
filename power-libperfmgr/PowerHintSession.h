@@ -90,6 +90,8 @@ class PowerHintSession : public BnPowerHintSession, public Immobile {
     void resetSessionHeuristicStates() REQUIRES(mPowerHintSessionLock);
     const std::shared_ptr<AdpfConfig> getAdpfProfile() const;
     ProcessTag getProcessTag(int32_t tgid);
+    ndk::ScopedAStatus setModeLocked(SessionMode mode, bool enabled)
+            REQUIRES(mPowerHintSessionLock);
 
     // Data
     PowerSessionManagerT *mPSManager;
