@@ -35,8 +35,7 @@ PRODUCT_PACKAGES += \
 
 # ANT+
 PRODUCT_PACKAGES += \
-    AntHalService-Soong \
-    com.dsi.ant@1.0.vendor
+    AntHalService-Soong
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -78,9 +77,6 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@2.0.vendor \
     android.hardware.bluetooth.audio-impl \
     audio.bluetooth.default
 
@@ -90,21 +86,11 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Camera
 PRODUCT_PACKAGES += \
-    android.frameworks.sensorservice@1.0.vendor \
     android.hardware.camera.device@3.5:64 \
     android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.6:64 \
     camera.sdm660 \
-    libcamera_metadata.vendor \
-    libdng_sdk.vendor \
-    libexif.vendor \
-    libion.vendor \
-    libjpeg.vendor \
-    liblz4.vendor \
-    libpng.vendor \
-    libutilscallstack.vendor \
-    libyuv.vendor \
     vendor.qti.hardware.camera.device@1.0:64
 
 # Configstore
@@ -128,24 +114,17 @@ PRODUCT_PACKAGES += \
     libdisplayconfig \
     libgralloc.qti \
     libtinyxml \
-    libqdMetaData \
-    libqdMetaData.system \
     libqdMetaData.system_ext
 
 PRODUCT_PACKAGES += \
     android.frameworks.displayservice@1.0_32 \
-    android.frameworks.displayservice@1.0.vendor \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     android.frameworks.displayservice@1.0 \
-    vendor.qti.hardware.display.allocator-service \
-    vendor.qti.hardware.display.mapper@1.0.vendor \
-    vendor.qti.hardware.display.mapper@1.1.vendor \
-    vendor.qti.hardware.display.mapper@2.0.vendor \
-    vendor.display.config@2.0
+    vendor.qti.hardware.display.allocator-service
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/others/display_id_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_0.xml
@@ -157,7 +136,6 @@ PRODUCT_PACKAGES += \
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey \
-    android.hardware.drm@1.3.vendor \
     libcrypto_shim
 
 # Dynamic Partitions
@@ -175,13 +153,8 @@ PRODUCT_PACKAGES += \
 # Fwk detect
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect \
-    libqti_vndfwk_detect.vendor \
     libvndfwk_detect_jni.qti \
     libvndfwk_detect_jni.qti.vendor
-
-# Gatekeeper
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0.vendor
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -211,15 +184,8 @@ PRODUCT_PACKAGES += \
 
 # HIDL
 PRODUCT_PACKAGES += \
-    android.hidl.allocator@1.0.vendor \
     android.hidl.base@1.0 \
-    android.hidl.base@1.0.vendor \
-    android.hidl.memory@1.0.vendor \
-    libhidlmemory.vendor \
-    libhidltransport \
-    libhidltransport.vendor \
-    libhwbinder \
-    libhwbinder.vendor
+    android.hidl.base@1.0.vendor
 
 # IDC
 PRODUCT_COPY_FILES += \
@@ -262,10 +228,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/keylayout/uinput-fpc.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-fpc.kl \
     $(LOCAL_PATH)/configs/keylayout/uinput-goodix.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-goodix.kl
 
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0.vendor
-
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.lights-service.wayne
@@ -293,8 +255,7 @@ PRODUCT_COPY_FILES += \
 
 # Net
 PRODUCT_PACKAGES += \
-    netutils-wrapper-1.0 \
-    android.system.net.netd@1.1.vendor
+    netutils-wrapper-1.0
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -357,45 +318,22 @@ PRODUCT_COPY_FILES += \
 
 # Perf
 PRODUCT_PACKAGES += \
-    libqti-perfd-client \
-    vendor.qti.hardware.perf@2.2.vendor
+    libqti-perfd-client
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.wayne-libperfmgr \
-    libpower.vendor
+    android.hardware.power-service.wayne-libperfmgr
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/power-libperfmgr/etc/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
-
-# Protobuf
-PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full-3.9.1-vendorcompat \
-    libprotobuf-cpp-lite-3.9.1-vendorcompat
 
 # Public Libraries
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/others/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
-# QMI
-PRODUCT_PACKAGES += \
-    libcrypto_utils.vendor \
-    libjson \
-    libjsoncpp.vendor \
-    libnetutils.vendor \
-    libsqlite.vendor \
-    libssl.vendor
-
 # RIL
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.6.vendor \
-    android.hardware.radio.config@1.3.vendor \
-    android.hardware.radio.deprecated@1.0.vendor \
-    android.hardware.secure_element@1.2 \
-    android.hardware.secure_element@1.2.vendor \
     rild \
-    libavservices_minijail.vendor \
-    librmnetctl \
     libprotobuf-cpp-full \
     ims-ext-common \
     ims_ext_common.xml \
