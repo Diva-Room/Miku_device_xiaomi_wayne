@@ -2,13 +2,13 @@
   { 
     "repository"   : "Miku_vendor_xiaomi_wayne",
     "target_path"  : "vendor/xiaomi/wayne",
-    "branch"       : "Vampire_v2",
+    "branch"       : "Vampire_v3",
     "remote"       : "diva"
   },
   {
     "repository"   : "Miku_kernel_xiaomi_wayne",
     "target_path"  : "kernel/xiaomi/wayne",
-    "branch"       : "Vampire_v2",
+    "branch"       : "Vampire_v3",
     "remote"       : "diva"
   }
 ]
