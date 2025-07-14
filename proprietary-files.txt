@@ -992,18 +992,22 @@ vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so
 vendor/lib/libhdr_tm.so|a2292af314f9fa86b9ec2bb11ad72bf85e959842
 vendor/lib64/libhdr_tm.so|a1b9bbad12217e6b79951774801aa54be6460fd6
 
+# Current blobs with ELF checks disabled:
+# libsdm-color, libsdm-diag, libsdm-disp-vndapis, libsdmextension depends on
+# libsdmutils, which is a GNU Makefile target
+
 # Graphics (SDM) - from S62Pro
 vendor/lib/libqseed3.so|1a67e4c3e7d904dc3d3af35c0f516fe13ed88bcb
-vendor/lib/libsdm-color.so|43bfdb63147740a728e704b35c659301bca7ede2
-vendor/lib/libsdm-diag.so|a2b532158e12562e1fb74695bf829de1b94c2cde
-vendor/lib/libsdm-disp-vndapis.so|501f1b94c95f885e1e2bfab4d5f6804456473d79
-vendor/lib/libsdmextension.so|499d9b9be4fb53b2410f65976ea94f2c154b9f11
+vendor/lib/libsdm-color.so;DISABLE_CHECKELF|43bfdb63147740a728e704b35c659301bca7ede2
+vendor/lib/libsdm-diag.so;DISABLE_CHECKELF|a2b532158e12562e1fb74695bf829de1b94c2cde
+vendor/lib/libsdm-disp-vndapis.so;DISABLE_CHECKELF|501f1b94c95f885e1e2bfab4d5f6804456473d79
+vendor/lib/libsdmextension.so;DISABLE_CHECKELF|499d9b9be4fb53b2410f65976ea94f2c154b9f11
 vendor/lib/libtinyxml2_1.so|aec76b36890b163f9cf1be594d6b082887f0a9b2
 vendor/lib64/libqseed3.so|a858c83fb38ef7acd21ea0a23f36ef22ba8c06ef
-vendor/lib64/libsdm-color.so|69cea5fdff6c3ef05a17390b9031d9e0054bc2ad
-vendor/lib64/libsdm-diag.so|2ba98c20d05e34501a4423f55bec4da3f27711ad
-vendor/lib64/libsdm-disp-vndapis.so|80170ba42ef766a8217500e49c4943be91cf0749
-vendor/lib64/libsdmextension.so|2d7469450bfaadb304a8080e384f72601442d078
+vendor/lib64/libsdm-color.so;DISABLE_CHECKELF|69cea5fdff6c3ef05a17390b9031d9e0054bc2ad
+vendor/lib64/libsdm-diag.so;DISABLE_CHECKELF|2ba98c20d05e34501a4423f55bec4da3f27711ad
+vendor/lib64/libsdm-disp-vndapis.so;DISABLE_CHECKELF|80170ba42ef766a8217500e49c4943be91cf0749
+vendor/lib64/libsdmextension.so;DISABLE_CHECKELF|2d7469450bfaadb304a8080e384f72601442d078
 vendor/lib64/libtinyxml2_1.so|ff32deb110acb02cb5def5f3404f9064c1276483
 
 # Graphics (Vulkan) - from S62Pro

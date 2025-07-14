@@ -70,6 +70,7 @@ function lib_to_package_fixup_vendor_variants() {
             vendor.qti.imsrtpservice@3.0)
             echo "$1-vendor"
             ;;
+		libsdmutils) ;;
         *)
             return 1
             ;;
