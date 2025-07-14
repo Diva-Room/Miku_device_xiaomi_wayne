@@ -1,5 +1,5 @@
-# jasmine package version: V11.0.28.0.QDIMIXM, unless stated otherwise
 # S62Pro package version: Cat S62Pro sdm660_64-user 11 RKQ1.210406.002 1.015.00
+# jasmine package version: V11.0.28.0.QDIMIXM, unless stated otherwise
 
 # ADSP - from S62Pro
 vendor/bin/adsprpcd|5e246a6f5d2dca27e29b233a17e4673532191b95
@@ -41,6 +41,10 @@ vendor/lib64/hw/vendor.qti.hardware.alarm@1.0-impl.so|4129558506dc078c03679ba362
 vendor/lib64/vendor.qti.hardware.alarm@1.0.so|dcfdc04b4e0c6e6a4ffa60e1694268bd0327e65c
 
 # Audio - from S62Pro
+vendor/lib/soundfx/libasphere.so|90940fca6f4b84794046513c6c6868eca9470066
+vendor/lib/soundfx/libqcbassboost.so|8e92c5d40cd23f503840b055d71336e4c9daecc0
+vendor/lib/soundfx/libqcreverb.so|7e05f1f4bdd2947dac3aefd871437d289581078b
+vendor/lib/soundfx/libqcvirt.so|03a8b95eb77811e3861307ab1451f4144bba2572
 vendor/lib/libacdb-fts.so|96db6fe2e443326705a37ac6e2e394f03144a386
 vendor/lib/libacdbloader.so|4d0743fe7f3eb1d2318feafc06363ffb527ca942
 vendor/lib/libacdbrtac.so|b6484ac64f20c4a0f605fb4901d33b8b27a95a74
@@ -48,10 +52,6 @@ vendor/lib/libadiertac.so|b0a0ebc89be729e37fe34ceaa05f97a1bc9560a6
 vendor/lib/libadm.so|2fd429c8066572cc49262fe0d452c78706197d54
 vendor/lib/libaudcal.so|5361c538d20634221c317851c33b0842ced93fca
 vendor/lib/libqtigef.so|977cbb704f6b2bae7f4e2f17b8c15146a6cacffb
-vendor/lib/soundfx/libasphere.so|90940fca6f4b84794046513c6c6868eca9470066
-vendor/lib/soundfx/libqcbassboost.so|8e92c5d40cd23f503840b055d71336e4c9daecc0
-vendor/lib/soundfx/libqcreverb.so|7e05f1f4bdd2947dac3aefd871437d289581078b
-vendor/lib/soundfx/libqcvirt.so|03a8b95eb77811e3861307ab1451f4144bba2572
 
 # Audio ACDB - from jasmine
 vendor/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
@@ -88,13 +88,6 @@ vendor/lib64/libbtnv.so|82cc941c6a262e0965925b4955b1ea508b798bfa
 vendor/lib64/vendor.qti.hardware.fm@1.0.so|d214ad9022558b7521a51f068049d36eae1c4b95
 
 # CNE - from S62Pro
--system_ext/lib64/com.quicinc.cne.api@1.0.so|76440d7953db0808e855eee393e116841b59c6d5
--system_ext/lib64/com.quicinc.cne.api@1.1.so|0b7d8bca2364f1445f3ba1208fc68f7eac7578fe
--system_ext/lib64/com.quicinc.cne.constants@1.0.so|e700fbf189a96fe1821a89d59d04c7d14ab14cf7
--system_ext/lib64/com.quicinc.cne.constants@2.0.so|a5d80268d940651509d9bfc10f38538d6da04580
--system_ext/lib64/com.quicinc.cne.constants@2.1.so|cf8a4412ca6ee339ac0dc2a14a9fad3091874c6f
--vendor/app/CneApp/CneApp.apk|c228e10dcfa07acc1eeedc5557573d3fc5f09f37
--vendor/app/IWlanService/IWlanService.apk|ba85c316c0106173f7b2d14d38da5fabad6a8ddd
 system_ext/framework/com.quicinc.cne.api-V1.0-java.jar|31ba1bfae2830f87e77844cfb96913271dac0925
 system_ext/framework/com.quicinc.cne.api-V1.1-java.jar|e71f1a060bc65eb373beb6d33158c0e2b37e2a70
 system_ext/framework/com.quicinc.cne.constants-V1.0-java.jar|e0e0bb8ed025b0682483c395de6ec42b5b3c0058
@@ -109,6 +102,11 @@ system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar|da83f28bb
 system_ext/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar|b776f0042dbb7fb5f6619dbc5b97c42248b4e4f2
 system_ext/framework/vendor.qti.hardware.data.latency-V1.0-java.jar|68068cdbd044dca2872284ebcd2909eb74c3a804
 system_ext/framework/vendor.qti.hardware.data.qmi-V1.0-java.jar|ff9d6d52309ce32124af851eacd82de8de7d2e12
+-system_ext/lib64/com.quicinc.cne.api@1.0.so|76440d7953db0808e855eee393e116841b59c6d5
+-system_ext/lib64/com.quicinc.cne.api@1.1.so|0b7d8bca2364f1445f3ba1208fc68f7eac7578fe
+-system_ext/lib64/com.quicinc.cne.constants@1.0.so|e700fbf189a96fe1821a89d59d04c7d14ab14cf7
+-system_ext/lib64/com.quicinc.cne.constants@2.0.so|a5d80268d940651509d9bfc10f38538d6da04580
+-system_ext/lib64/com.quicinc.cne.constants@2.1.so|cf8a4412ca6ee339ac0dc2a14a9fad3091874c6f
 system_ext/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so|496982703c92d6b43458c7e1324b212329693ffb
 system_ext/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so|3ac82400c2c7c5314277c585b72f08d33021aaee
 system_ext/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so|a7462a29278bd1d40889a673aba5b7fa874c6725
@@ -118,9 +116,9 @@ system_ext/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so|8e4f7bc59e3c7a92b6e9
 system_ext/lib64/vendor.qti.hardware.data.iwlan@1.0.so|794d79a56fdc634175efedb6c7aafe9286a58dfc
 system_ext/lib64/vendor.qti.hardware.data.latency@1.0.so|16b0273612a833617d1aff80cc24933fc7f9006c
 system_ext/lib64/vendor.qti.hardware.data.qmi@1.0.so|dbede1bf4e67724b1215beda05dbc3531df3b93e
+-vendor/app/CneApp/CneApp.apk|c228e10dcfa07acc1eeedc5557573d3fc5f09f37
+-vendor/app/IWlanService/IWlanService.apk|ba85c316c0106173f7b2d14d38da5fabad6a8ddd
 vendor/bin/cnd|67a5c1fa6e74863086bc0d258543006df55decef
-vendor/etc/cne/mwqem.conf|c51d3893b86ab89fae218f3a92c4f9c18ea401a8
-vendor/etc/cne/profileMwqem.xml|947917691684584b7e2ddf3588cd6f8e99f3804f
 vendor/etc/cne/wqeclient/ATT/ATT_profile1.xml|578f3f8f56059bfdbef926bcc68d01c15e06951f
 vendor/etc/cne/wqeclient/ATT/ATT_profile2.xml|1fb42c672a12b6660bdce3ea94e0c43719dd9de8
 vendor/etc/cne/wqeclient/ATT/ATT_profile3.xml|f88e13f1dd7b82388c90358f71813026370c9ed8
@@ -148,6 +146,8 @@ vendor/etc/cne/wqeclient/VZW/VZW_profile3.xml|9b123d81c9b8991499cda33b0706810e0c
 vendor/etc/cne/wqeclient/VZW/VZW_profile4.xml|ff91feb5060a6df07e3e4d9bc99ae58bccad7649
 vendor/etc/cne/wqeclient/VZW/VZW_profile5.xml|f76c894f3c6d5b6ed35113a088dc3174c900501b
 vendor/etc/cne/wqeclient/VZW/VZW_profile6.xml|14d136e7fcc682311757d3edc0b9d3eaeba11815
+vendor/etc/cne/mwqem.conf|c51d3893b86ab89fae218f3a92c4f9c18ea401a8
+vendor/etc/cne/profileMwqem.xml|947917691684584b7e2ddf3588cd6f8e99f3804f
 vendor/etc/default-permissions/com.qualcomm.qti.cne.xml|c63c37d067e3009735fbc54d4603d43d7d6623e1
 vendor/etc/init/cnd.rc|3a5183df3479500fb729493bc56c71166fc10bce
 vendor/lib64/libcne.so|646dbdf7f6990fb149fb9574f11792375ba1f64e
@@ -866,7 +866,6 @@ vendor/lib64/hw/consumerir.default.so:vendor/lib64/hw/consumerir.lirc.sdm660.so|
 vendor/lib64/hw/consumerir.default.so:vendor/lib64/hw/consumerir.spi.sdm660.so|d1f275a91557dfab52e82906986c5094fe078722
 
 # DPM - from S62Pro
--system_ext/priv-app/dpmserviceapp/dpmserviceapp.apk|901da1e070e54e5757874473022df0161ac4818b
 framework/tcmclient.jar|cdd1ea7143a5a7acc3909b5cfa706650179647c7
 system_ext/bin/dpmd|4662a11c5331919cc08d541a298444ffce18cc1b
 system_ext/etc/dpm/dpm.conf|0db01f277d3ba779abb2170aa798852f018ecd5a
@@ -882,6 +881,7 @@ system_ext/lib64/libdpmfdmgr.so|bf3666db17e77da3a303c10579baec0bd018089f
 system_ext/lib64/libdpmframework.so|d228de78824f42232b447207751b672effa7fa8f
 system_ext/lib64/libdpmtcm.so|dff3d3dbacd18ed55b5758a174f5016ef9e7a896
 system_ext/lib64/vendor.qti.diaghal@1.0.so|abe51fdbdcbf3449012395cf0ade8aa8d267dbe6
+-system_ext/priv-app/dpmserviceapp/dpmserviceapp.apk|901da1e070e54e5757874473022df0161ac4818b
 vendor/bin/dpmQmiMgr|b1b5f8a54bc99a2e1cf4b36ba40e58bdf0580178
 vendor/etc/init/dpmQmiMgr.rc|1538743661a5c48c15cd105beaad20f72953885a
 vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so;MODULE_SUFFIX=-vendor|d9f1aa7f93b928f42499d613d20ccbc60f279097
@@ -913,10 +913,10 @@ vendor/etc/qdcm_calib_data_jdi_nt36672_fhd_video_mode_dsi_panel.xml|b3ebd0fcd2ed
 vendor/etc/qdcm_calib_data_tianma_nt36672_fhd_video_mode_dsi_panel.xml|e6632fbcb6af3082c4cd17afe26a4aab1e63c6ed
 
 # Fingerprint - from wayne
-vendor/lib64/com.fingerprints.extension@1.0.so
 vendor/lib64/hw/fingerprint.default.so:vendor/lib64/hw/fingerprint.sdm660.so
 vendor/lib64/hw/fingerprint.fpc.default.so
 vendor/lib64/hw/fingerprint.goodix.default.so
+vendor/lib64/com.fingerprints.extension@1.0.so
 vendor/lib64/libgf_ca.so
 vendor/lib64/libgf_hal.so
 vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0-service.so
@@ -943,11 +943,11 @@ vendor/firmware/fpctzappfingerprint.b07|127342f5ddf0f91a9d62d133bfc04fb68fedd0d3
 vendor/firmware/fpctzappfingerprint.mdt|c149e27236e275fcef2cb243c3ab180e84197da2
 
 # GPS - from ginkgo V12.5.1.0.RCOCNXM
--vendor/etc/vintf/manifest/vendor.qti.gnss@4.0-service.xml|6514b13f55abc0acc28e004c35ff93fb972d61a9
 vendor/bin/garden_app|4f61dffac228425593cb5c108cb02b28a5f37c72
 vendor/bin/loc_launcher|fe6f061abe050d8884a0a49967ad89596065952d
 vendor/bin/lowi-server|e3cc615760cd28dbbe37dcfd783e789640cf0050
 vendor/bin/xtra-daemon|11f399e038c3ec35edf01da2b85d21f3e45b9cf9
+-vendor/etc/vintf/manifest/vendor.qti.gnss@4.0-service.xml|6514b13f55abc0acc28e004c35ff93fb972d61a9
 vendor/etc/cacert_location.pem|0789bf799c7e45d352a83e2f79ddb0cea86db85b
 vendor/etc/xtra_root_cert.pem|f55a31ec4d9cf8ce2724acadecf00c779f8767db
 vendor/lib64/hw/vendor.qti.gnss@4.0-impl.so|ecbf4afff44a8d805b3551008630d2574cb5a15c
@@ -1179,7 +1179,6 @@ vendor/lib64/libqmiservices.so|52770edf3e35f5376f3d0a131636f3213c9e59fa
 
 # Radio - IMS - from S62Pro
 -system_ext/app/imssettings/imssettings.apk|ab19f8b6b35e30d1b9310db51224a7c07ae5143e
--system_ext/priv-app/ims/ims.apk|91c8e9b96882063769ef0a27ac9ea2627e8a8436
 system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml|bd9fc166b542b4e730f194ebc996957770d9d497
 system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.1-java.xml|b40fc74f7d5e58b4e918f952b89a79cf2a5c4088
 system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.2-java.xml|bfceff47fb0b55a418bed71de6050d876a776ac7
@@ -1214,6 +1213,7 @@ system_ext/lib64/vendor.qti.ims.callinfo@1.0.so|9e7769b7dd467da8a31db31fcee694da
 system_ext/lib64/vendor.qti.ims.factory@1.0.so|1421a7d0390c9ecd71c60fac026ca3499dddd913
 system_ext/lib64/vendor.qti.ims.rcsconfig@1.0.so|4b56c07ee1d30a63e96918257079bcb9f0da1e1b
 system_ext/lib64/vendor.qti.imsrtpservice@3.0.so|4cf9e97f526c6278c5e2136e00d1fb800fb941aa
+-system_ext/priv-app/ims/ims.apk|91c8e9b96882063769ef0a27ac9ea2627e8a8436
 vendor/bin/ims_rtp_daemon|fbec6a715d54e31c3833799386f8954b1b83b1d1
 vendor/bin/imsdatadaemon|36738383eb8e711adf94f1bc09dee50b78c747f6
 vendor/bin/imsqmidaemon|5fde955e71392479b2f3e6aaf6005fa54b618678
@@ -1265,7 +1265,6 @@ vendor/lib64/vendor.qti.imsrtpservice@3.0.so;MODULE_SUFFIX=-vendor|460e589128fce
 -system_ext/app/DeviceInfo/DeviceInfo.apk|1115ff685be64dfb3f4752911f7389ac7b676724
 -system_ext/app/QtiTelephonyService/QtiTelephonyService.apk|b277bd20934f3133d29dfbfb0edbcf8162b05bd5
 -system_ext/app/embms/embms.apk|356341fe7d08b0bb384f0f2a65ebf5920955e96a
--system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|e185e79a10c1ce5e75d36c5622cc93db917cb212
 system_ext/etc/permissions/embms.xml|22e7474091f9f71f02dd0cfc76cfa8848a46f079
 system_ext/etc/permissions/qcrilhook.xml|30397e293b2c40e6b7a1d11c2a615cdd05de625a
 system_ext/etc/permissions/telephony_system-ext_privapp-permissions-qti.xml|4f0056403f56928b8c75a617ba582f17061f89ae
@@ -1275,8 +1274,9 @@ system_ext/framework/qcrilhook.jar|ec5147b14e858c34e98874a50daca7be4d86af27
 system_ext/framework/qti-telephony-common.jar|b56a247d21e72fc7b0b1d5882fb4d99041374dbd
 system_ext/lib/vendor.qti.hardware.mwqemadapter@1.0.so|9e93fbb5e32d2381c3da9679e6df609950379b9a
 system_ext/lib64/vendor.qti.hardware.mwqemadapter@1.0.so|ededac47c5254cebd53003424a705f99ebbe6a11
-vendor/bin/adpl|71fa114f37e68a5afbd3f77abc664c8f7347e3e4
+-system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|e185e79a10c1ce5e75d36c5622cc93db917cb212
 vendor/bin/hw/qcrild|0e3b74c43cea4d1b6e9e5f5bbf7b5824d9fe10c9
+vendor/bin/adpl|71fa114f37e68a5afbd3f77abc664c8f7347e3e4
 vendor/bin/netmgrd|22ca76db16e5eaa1e4faed38b6c62ed1d050ae0f
 vendor/bin/port-bridge|a55e0ba7812d98269f92ee3f683417687c8d0dad
 vendor/bin/qrtr-cfg|9019f1c99cb23913f540433285af0d26c397c121
@@ -1343,7 +1343,6 @@ vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so|663b65448ec8f597
 vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so|3ffb7301b6c185b114157c5423de604e5ba93ade
 vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so|75a58827c0b4e06e2ca8163b6a904dab2af3be6a
 vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so|91521d031060612dbf53d4a6437eba56780c768a
-vendor/radio/qcril_database/qcril.db|20565c569f6c9befe768fc549d925b94aa0505d6
 vendor/radio/qcril_database/upgrade/0_initial.sql|df7e164e68647b0811a963193624911c53b32552
 vendor/radio/qcril_database/upgrade/1_version_intro.sql|6bec9588f4763810937cc9a7c2e66a0a52ff07fb
 vendor/radio/qcril_database/upgrade/2_version_add_wps_config.sql|b4a825ba20fea3e2f20c7f02c8bd64596c24a75e
@@ -1352,6 +1351,7 @@ vendor/radio/qcril_database/upgrade/4_version_update_ecc_table.sql|0734c6a2863ed
 vendor/radio/qcril_database/upgrade/5_version_update_ecc_table.sql|fcb2cba3bfd718ecdc8d3cfac3a0b2b2c7e8c506
 vendor/radio/qcril_database/upgrade/6_version_update_ecc_table.sql|0fdf4b6ccb48906b37885e060429f79c9fd6bdbf
 vendor/radio/qcril_database/upgrade/7_version_update_ecc_table.sql|9a76d5747da2876b87b214579c9d74ae92d218d7
+vendor/radio/qcril_database/qcril.db|20565c569f6c9befe768fc549d925b94aa0505d6
 
 # Sensors - from S62Pro
 vendor/bin/sensors.qti|04d11860e030b6176056b6e862b9e4ee9ba2289a
@@ -1375,9 +1375,9 @@ vendor/etc/init/vendor.qti.hardware.tui_comm@1.0-service-qti.rc|2cfc563d7e157937
 vendor/lib64/vendor.qti.hardware.tui_comm@1.0.so|4ba792ee3234dca4cd7ebbd7b3f9003c800f51b4
 
 # Thermal - from S62Pro
+vendor/bin/thermal-engine|fe478f3ba50a819f58cc55dc1227bc0e37d30b14
 -vendor/lib/libthermalclient.so|b2d69a3a3589eb0387c2f13cc10ff91072c27c9a
 -vendor/lib64/libthermalclient.so|26475ef0d6b80fcf40c9490f795d21e46d3d9054
-vendor/bin/thermal-engine|fe478f3ba50a819f58cc55dc1227bc0e37d30b14
 
 # Time services - from S62Pro
 -vendor/app/TimeService/TimeService.apk|88f7c7f4c10f53dfd69cf7828f883d3df82003e7
@@ -1386,14 +1386,14 @@ vendor/etc/init/init.time_daemon.rc|b253ca2a498757e14e1d7a051bf504ae09218f51
 vendor/lib64/libtime_genoff.so|8bb116ad297a5e4a94da2f10509509cb6e863a5f
 
 # Widevine - from S62Pro
--vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml|ebebcf8f367641480cf7d512fc06e6ab777527be
 vendor/bin/hw/android.hardware.drm@1.3-service.widevine|2158f47423c723a9da29bb81bb16987a1e715c21
 vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc|c35e1a6f9a6faff19064a81e07c4be82ceaf4bb5
+-vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml|ebebcf8f367641480cf7d512fc06e6ab777527be
+vendor/lib64/mediadrm/libwvdrmengine.so|eef10067daf437a2c302e668967a7c8c55fddbe9
 vendor/lib64/libbase64.so|ba6ad6314fe82d8efc770e436237dec48c9d1331
 vendor/lib64/libcpion.so|80d7e010395b3ead01b70435584dfa11afbb52bf
 vendor/lib64/librmp.so|6392e70196f5a6da2d49a1aaec60f06ca378f1c4
 vendor/lib64/libwvhidl.so|513593d421e18b4d33c575fa84d967206f8feb4a
-vendor/lib64/mediadrm/libwvdrmengine.so|eef10067daf437a2c302e668967a7c8c55fddbe9
 
 # Wifi - from S62Pro
 vendor/bin/cnss-daemon|3137d9a479fe6e363896fe77248bcb488fae2c2e
