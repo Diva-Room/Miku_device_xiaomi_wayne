@@ -1295,6 +1295,7 @@ vendor/etc/init/port-bridge.rc|e52d61a0de5e8a3b21bfbfca929e862422645377
 vendor/etc/init/qcrild.rc|17cf4934bf443cf6469d8b3ff622eeb0e4a0aac6
 vendor/etc/init/vendor.qti.rmt_storage.rc|bc212c6353c2ded44ae4d759605fbbe55aa4fa3f
 vendor/etc/init/vendor.qti.tftp.rc|b27f188cbffba470a4510d50e46ff7c8446c22cb
+vendor/lib/libqcbor.so|3371e2fb2be1d7ff569f35841c88d2f8fe9199a5
 vendor/lib/vendor.qti.hardware.mwqemadapter@1.0.so;MODULE_SUFFIX=-vendor|ac6fb6552aefce004b4fa27524d14b5b6f3131c9
 vendor/lib64/libconfigdb.so|422700e18534e9318f024583a803cc55205e099a
 vendor/lib64/libdsi_netctrl.so|37d71e616a2fa94225558eecee79f22c38a7208c
@@ -1307,6 +1308,7 @@ vendor/lib64/libnlnetmgr.so|e99f1fe776f12db4285835fb2a7ac4c82aafc1b3
 vendor/lib64/liboemaids_vendor.so|bc25c678a4981d6f3d16f292247ec3f885be2015
 vendor/lib64/libpdmapper.so|eb1970aa203ebc5b99a0364653df6019e429a7b7
 vendor/lib64/libpdnotifier.so|665da78ebcc71682a19e4635209e6718741b0512
+vendor/lib64/libqcbor.so|7da5294a577f5a71ede5b3804a026bf69bd025ee
 vendor/lib64/libqcmaputils.so|42729b851912ac2cd899b3ddc2e52e1156ea0426
 vendor/lib64/libqcrilFramework.so|dc62bd4f3685c420d43f4f5f4141d5908212df86
 vendor/lib64/libqcrildatactl.so|612f31db78dd262a349c093c1a5071e4fd89450d
