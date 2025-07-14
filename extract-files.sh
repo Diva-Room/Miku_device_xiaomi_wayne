@@ -57,6 +57,9 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        system_ext/lib64/lib-imscamera.so)
+            grep -q libgui_shim.so "${2}" || "${PATCHELF}" --add-needed "libgui_shim.so" "${2}"
+            ;;
         vendor/bin/mlipayd@1.1)
            "${PATCHELF}" --remove-needed vendor.xiaomi.hardware.mtdservice@1.0.so "${2}"
             ;;
