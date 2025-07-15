@@ -81,7 +81,7 @@ blob_fixups: blob_fixups_user_type = {
         .binary_regex_replace(b'/system/etc/firmware', b'/vendor/firmware'),
     ('vendor/lib64/vendor.xiaomi.hardware.mlipay@1.1.so', 'vendor/lib64/vendor.xiaomi.hardware.mlipay@1.0.so', 'vendor/lib64/libvendor.goodix.hardware.fingerprint@1.0.so', 'vendor/lib64/com.fingerprints.extension@1.0.so'): blob_fixup()
         .replace_needed('libhidlbase.so', 'libhidlbase-v32.so'),
-    'vendor/lib64/libwvhidl.so': blob_fixup()
+    ('vendor/lib64/libwvhidl.so', 'vendor/lib64/mediadrm/libwvdrmengine.so'): blob_fixup()
         .add_needed('libcrypto_shim.so')
 }  # fmt: skip
 
