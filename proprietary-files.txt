@@ -1124,9 +1124,13 @@ vendor/lib64/libmlipay@1.1.so|7d07b19faa36c62babf39a41b2baf8de370d706c
 vendor/lib64/vendor.xiaomi.hardware.mlipay@1.0.so|bc7d8a07ad566b5c0d37bfc635cdb103d6edfb9e
 vendor/lib64/vendor.xiaomi.hardware.mlipay@1.1.so|6b43d8b37f59411fe051fb3a8649584f5af0a26c
 
-# Perf - from S62Pro
-system_ext/lib/libqti_performance.so|1f40960488f61ce5e5415e5d835805f48d7fea62
-system_ext/lib64/libqti_performance.so|3cbbc72af6e192177c9d058309b6dde31a825825
+# Perf - from HON660-T-96.00.04-(0061)
+system_ext/lib/libqti-perfd-client_system.so|2caea0b784592a8fb1a8b4bacc65ec1d6c142f85
+system_ext/lib/libqti_performance.so|351760b18a305cdb89a2921aa80c6d65eddfc158
+system_ext/lib/vendor.qti.hardware.iop@2.0.so|cf84fe5669de7da3fc08aec4b7ed0ad389197f5b
+system_ext/lib64/libqti-perfd-client_system.so|ed2db1e954268ec76acb51d6b0073bf89bae862c
+system_ext/lib64/libqti_performance.so|b3e47b7af8cee307375ad97854c138de4a907991
+system_ext/lib64/vendor.qti.hardware.iop@2.0.so|9f9453e57ef761b6a6116439cb0d9ea6ea857545
 
 # Peripheral manager - from S62Pro
 vendor/bin/pm-proxy|42383b9163716d8e6d81f0516e9cf09f22ea8b06
